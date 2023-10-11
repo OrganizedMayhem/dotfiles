@@ -30,12 +30,9 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
   use 'stevearc/oil.nvim'
   -- Completion plugins
+  use 'L3MON4D3/LuaSnip'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
-  --  use 'L3MON4D3/LuaSnip'
-  -- use 'saadparwaiz1/cmp_luasnip'
-  --use "rafamadriz/friendly-snippets"
-  -- use "github/copilot.vim"
   use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
   -- LSP and related plugins
   use {
@@ -69,7 +66,7 @@ return require('packer').startup(function(use)
     debounce_ms = 800,
     suggestion_color = {gui = "#808080", cterm = 244},
     exclude_filetypes = {"TelescopePrompt", "NvimTree"},
-    log_file_path = nil, -- absolute path to Tabnine log file
+    log_file_path = '/var/log/tabnine.log', -- absolute path to Tabnine log file
     })
   if packer_bootstrap then
     require('packer').sync()
