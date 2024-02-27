@@ -9,4 +9,6 @@ require("core.plugin_config.mason")
 require("core.plugin_config.lsp_config")
 require("core.plugin_config.gitsigns")
 require("core.plugin_config.oil")
-require("core.plugin_config.markdown_preview")
+require("core.plugin_config.tabnine")
+require("core.plugin_config.gopls")--
+require("core.plugin_config.obsidian")
