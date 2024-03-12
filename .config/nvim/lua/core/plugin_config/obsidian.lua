@@ -5,9 +5,13 @@ require("obsidian").setup(
         -- your vault root (where the `.obsidian` folder is located).
         workspaces = {
             {
-                name = "Technology",
-                path = "/home/sevans/vaults/Notes/"
+                name = "Personal",
+                path = "/home/sevans/vaults/personal"
             },
+            {
+                name = "Work",
+                path = "/home/sevans/vaults/work"
+            }
         },
         -- Alternatively - and for backwards compatibility - you can set 'dir' to a single path instead of
         -- 'workspaces'. For example:
@@ -103,13 +107,13 @@ require("obsidian").setup(
             highlight_text = {hl_group = "ObsidianHighlightText"},
             tags = {hl_group = "ObsidianTag"},
             hl_groups = {
-                ObsidianTodo          = {bold = true, fg = "#f78c6c"},
-                ObsidianDone          = {bold = true, fg = "#89ddff"},
-                ObsidianRightArrow    = {bold = true, fg = "#f78c6c"},
-                ObsidianTilde         = {bold = true, fg = "#ff5370"},
-                ObsidianBullet        = {bold = true, fg = "#89ddff"},
-                ObsidianRefText       = {underline = true, fg = "#c792ea"},
-                ObsidianExtLinkIcon   = {fg = "#c792ea"},
+                ObsidianTodo = {bold = true, fg = "#f78c6c"},
+                ObsidianDone = {bold = true, fg = "#89ddff"},
+                ObsidianRightArrow = {bold = true, fg = "#f78c6c"},
+                ObsidianTilde = {bold = true, fg = "#ff5370"},
+                ObsidianBullet = {bold = true, fg = "#89ddff"},
+                ObsidianRefText = {underline = true, fg = "#c792ea"},
+                ObsidianExtLinkIcon = {fg = "#c792ea"},
                 ObsidianTag = {italic = true, fg = "#89ddff"},
                 ObsidianHighlightText = {bg = "#75662e"}
             }

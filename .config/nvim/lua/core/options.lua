@@ -9,3 +9,6 @@ vim.opt.foldlevel = 99
 vim.opt.foldcolumn = "0"
 vim.opt.swapfile = false
 vim.opt.conceallevel = 1
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+

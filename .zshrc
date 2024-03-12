@@ -28,24 +28,24 @@ PATH=$PATH:$HOME/.local/bin
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-        gitfast
-        ansible
-        docker
-        battery
-        web-search
-        azure
-        kubectl
-        helm
-        terraform
-        vault
-        rust
-        nmap
-        git
-        ripgrep
-        fzf
-        colorize
-        sdk
-        golang
+	gitfast
+	ansible
+	docker
+	battery
+	web-search
+	azure
+	kubectl
+	helm
+	terraform
+	vault
+	rust
+	nmap
+	git
+	ripgrep
+	fzf
+	colorize
+	sdk
+	golang
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -59,49 +59,50 @@ source /opt/zsh.d/kubernetes.zsh
 source /opt/zsh.d/nvidia.zsh
 # User configuration
 alias distro-sync="sudo dnf5 clean all && sudo dnf5 distro-sync"
+export MICROK8s=$(hostname -I | awk '{print $1}')
 # Preferred editor for local and remote sessions
 # Define the function
 # Define the function
 no_comments() {
-    # Check for file existence
-    if [[ ! -f $1 ]]; then
-        echo "File not found!"
-        return 1
-    fi
+	# Check for file existence
+	if [[ ! -f $1 ]]; then
+		echo "File not found!"
+		return 1
+	fi
 
-    # Determine file type and set appropriate comment handling
-    case $1 in
-        *.tf)  # Terraform files
-            # Removing single-line comments starting with # or //
-            # and multi-line comments between /* and */
-            # then removing empty lines
-            sed '/^#/d; /^\/\//d; /\/\*/,/\*\//d' $1 | grep -v '^\s*$'
-            ;;
-        *.py)
-            grep -v '^#' $1 | grep -v '^\s*$'  # Python files
-            ;;
-        *.js | *.ts)
-            grep -v '^//' $1 | grep -v '^\s*$'  # JavaScript/TypeScript files
-            ;;
-        *)  # Default case for other file types
-            grep -v '^#' $1 | grep -v '^\s*$'  # Generic case assuming # as comment
-            ;;
-    esac
+	# Determine file type and set appropriate comment handling
+	case $1 in
+	*.tf) # Terraform files
+		# Removing single-line comments starting with # or //
+		# and multi-line comments between /* and */
+		# then removing empty lines
+		sed '/^#/d; /^\/\//d; /\/\*/,/\*\//d' $1 | grep -v '^\s*$'
+		;;
+	*.py)
+		grep -v '^#' $1 | grep -v '^\s*$' # Python files
+		;;
+	*.js | *.ts)
+		grep -v '^//' $1 | grep -v '^\s*$' # JavaScript/TypeScript files
+		;;
+	*)                                 # Default case for other file types
+		grep -v '^#' $1 | grep -v '^\s*$' # Generic case assuming # as comment
+		;;
+	esac
 }
 
 # Usage
 # cat_no_comments filename
 
-
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+	export EDITOR='nvim'
 else
-  export EDITOR='nvim'
+	export EDITOR='nvim'
 fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-decode () {
-  echo "$1" | base64 -d ; echo
+decode() {
+	echo "$1" | base64 -d
+	echo
 }
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
