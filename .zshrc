@@ -1,7 +1,9 @@
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="arrow"
+ZSH_THEME="agnoster"
 export GOPATH=/opt/go_modules/
 source $HOME/.cargo/env
+export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of loking in $ZSH/themes/
@@ -50,13 +52,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 export LIBVA_MESSAGING_LEVEL=1
-source /opt/zsh.d/work_variables.zsh
-source /opt/zsh.d/k9s.zsh
-source /opt/zsh.d/jfrog.zsh
-source /opt/zsh.d/nerdctl.zsh
-source /opt/zsh.d/kubectl.zsh
-source /opt/zsh.d/kubernetes.zsh
-source /opt/zsh.d/nvidia.zsh
+source /opt/zsh.d/variables/*.zsh
+source /opt/zsh.d/autocomplete/*.zsh
+source /opt/zsh.d/work/*.zsh
 # User configuration
 alias distro-sync="sudo dnf5 clean all && sudo dnf5 distro-sync"
 export MICROK8s=$(hostname -I | awk '{print $1}')
@@ -89,7 +87,7 @@ no_comments() {
 		;;
 	esac
 }
-
+alias personal='cd ~/personal'
 # Usage
 # cat_no_comments filename
 

@@ -7,6 +7,7 @@ end
 config = {
   color_scheme = 'Solarized Dark - Patched',
   enable_wayland = true,
+  font = "Fira Code"
 }
 wezterm.on('update-right-status', function(window, pane)
   -- "Wed Mar 3 08:14"

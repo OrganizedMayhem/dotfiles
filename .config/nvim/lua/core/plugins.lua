@@ -27,18 +27,26 @@ return require("packer").startup(
         use "nvim-lualine/lualine.nvim"
         use "nvim-treesitter/nvim-treesitter"
         use "bluz71/vim-nightfly-colors"
+        use "nvim-tree/nvim-web-devicons"
         -- Functional plugins
         use "tpope/vim-commentary"
         use "lewis6991/gitsigns.nvim"
         use "christoomey/vim-tmux-navigator"
         use "tpope/vim-fugitive"
         use "tpope/vim-surround"
-        use "stevearc/oil.nvim"
+        use ({
+            "stevearc/oil.nvim",
+            requires = {
+                "nvim-tree/nvim-web-devicons"
+                },
+             }
+            )
         -- Completion plugins
         use "L3MON4D3/LuaSnip"
         use "hrsh7th/nvim-cmp"
         use "hrsh7th/cmp-nvim-lsp"
         use "nvim-lua/plenary.nvim"
+    	use "hashicorp/terraform-ls"
         use {
             "folke/which-key.nvim",
             config = function()
