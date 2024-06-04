@@ -1,0 +1,7 @@
+devops:~/devops
+dotfiles:~/dotfiles
+gitlab-cloud:~devops/gitlab-cloud/gitlab-library
+gitlab-alert:~/devops/gitlab-onprem/gitlab-library
+pluginconfig:~/dotfiles/.config/nvim/lua/core/plugin_config
+sre:~/sre
+sretools:~/sre/sre-tools

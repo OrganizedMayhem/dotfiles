@@ -8,44 +8,43 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.153.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.186.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
-- name: aquasecurity/trivy@v0.49.1
+- name: aquasecurity/trivy@v0.51.4
 - name: FiloSottile/mkcert@v1.4.4
 # Cloud
 #- name: azure/azure-workload-identity@v1.1.0
 # Kubernetes
 - name: aporia-ai/kubesurvival@v1.0.1
-- name: Azure/kubelogin@v0.1.1
-- name: helm/helm@v3.14.3
-- name: derailed/k9s@v0.32.3
-- name: kubecost/kubectl-cost@v0.6.1
+- name: Azure/kubelogin@v0.1.3
+- name: helm/helm@v3.15.1
+- name: derailed/k9s@v0.32.4
+- name: kubecost/kubectl-cost@v0.6.2
 #- name: komodorio/helm-dashboard@v1.3.3
 # IaC/LSP
-- name: hashicorp/terraform-plugin-docs@v0.18.0
-- name: hashicorp/terraform-ls@v0.32.8
+- name: hashicorp/terraform-plugin-docs@v0.19.3
+- name: hashicorp/terraform-ls@v0.33.1
 - name: juliosueiras/terraform-lsp@v0.0.12
 - name: hadolint/hadolint@v2.12.0 #Dockerfile linter
 - name: GoogleCloudPlatform/terraformer@0.8.24
-- name: terramate-io/terramate@v0.5.3
+- name: terramate-io/terramate@v0.8.4
   # Database
 #- name: surrealdb/surrealdb@v1.0.0-beta.11
 # Other Packages
 #- name: humanlogio/humanlog@v0.7.5
 - name: wagoodman/dive@v0.12.0
 - name: bcicen/ctop@v0.7.7 # Top-like interface for container metrics 
-- name: sharkdp/fd@v9.0.0 # A simple, fast and user-friendly alternative to 'find'
-- name: containers/crun@1.14.4
+- name: sharkdp/fd@v10.1.0 # A simple, fast and user-friendly alternative to 'find'
+- name: containers/crun@1.15
 - name: slimtoolkit/slim@1.40.11
-- name: containerd/nerdctl@v1.7.4
-- name: kubernetes/kubeadm@v1.27.12
-- name: batchcorp/plumber@v2.6.0
+- name: containerd/nerdctl@v1.7.6
+- name: kubernetes/kubeadm@v1.30.1
+- name: batchcorp/plumber@v2.6.1
 - name: ankitpokhrel/jira-cli@v1.5.1
-- name: jesseduffield/lazygit@v0.40.2
+- name: jesseduffield/lazygit@v0.42.0
 - name: kubernetes-sigs/krew@v0.4.4
 - name: BurntSushi/ripgrep@14.1.0
-- name: golang.org/x/tools/gopls@gopls/v0.15.2
 - name: cbroglie/mustache@v1.4.0
 - name: GoTestTools/gotestfmt@v2.5.0
   # fpm fubectl jf jj kl-lint kubelift rg task tea watchman watchmanctl

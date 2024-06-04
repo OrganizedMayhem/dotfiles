@@ -3,7 +3,6 @@ ZSH_THEME="agnoster"
 export GOPATH=/opt/go_modules/
 source $HOME/.cargo/env
 export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of loking in $ZSH/themes/
@@ -33,8 +32,6 @@ plugins=(
 	gitfast
 	ansible
 	docker
-	battery
-	web-search
 	azure
 	kubectl
 	helm
@@ -42,12 +39,14 @@ plugins=(
 	vault
 	rust
 	nmap
-	git
 	ripgrep
 	fzf
 	colorize
 	sdk
 	golang
+    wd
+    command-not-found
+    virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh

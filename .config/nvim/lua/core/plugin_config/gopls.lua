@@ -8,7 +8,7 @@ lspconfig.gopls.setup {
         gopls = {
             analyses = {
                 unusedparams = true,
-                shadow = true,
+                shadow = true
             },
             staticcheck = true,
             matcher = "Fuzzy",
@@ -16,7 +16,7 @@ lspconfig.gopls.setup {
                 generate = true,
                 gc_details = true,
                 test = true,
-                tidy = true,
+                tidy = true
             },
             usePlaceholders = true,
             completeUnimported = true,
@@ -27,14 +27,14 @@ lspconfig.gopls.setup {
             -- memoryMode = "DegradeClosed",
             symbolMatcher = "Fuzzy",
             symbolStyle = "Dynamic",
-            verboseOutput = true,
+            verboseOutput = true
             -- add other experimental features here
-        },
+        }
     },
     on_attach = function(client, bufnr)
         -- Code to run when the language server attaches to a buffer
     end,
     flags = {
-        debounce_text_changes = 150,
-    },
+        debounce_text_changes = 150
+    }
 }
