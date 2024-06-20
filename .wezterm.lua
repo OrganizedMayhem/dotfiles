@@ -7,13 +7,15 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 config = {
-    color_scheme = "Solarized Dark - Patched",
-    front_end = "OpenGL",
-    harfbuzz_features = {"kern", "liga"},
+    color_scheme = "darkmoss",
+    front_end = "WebGpu",
     scrollback_lines = 1000,
+    animation_fps = 60,
+    webgpu_power_preference = "HighPerformance",
+--    webgpu_force_fallback_adapter = true,
 }
 font = "Fira Code"
-max_fps = 144
+--max_fps = 60
 -- Conditional configuration for different environments
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.enable_wayland = false
@@ -22,22 +24,6 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   config.enable_wayland = true
   -- Additional Linux-specific settings here
 end
-
--- Optimized battery information display for multiple batteries
-wezterm.on('update-right-status', function(window, pane)
-  local date = wezterm.strftime '%a %b %-d %H:%M '
-  local bat_info = {}
-
-  for _, b in ipairs(wezterm.battery_info()) do
-    table.insert(bat_info, '🔋 ' .. string.format('%.0f%%', b.state_of_charge * 100))
-  end
-
-  local bat = table.concat(bat_info, " ")
-
-  window:set_right_status(wezterm.format {
-    {Text = bat .. '   ' .. date},
-  })
-end)
 
 -- Custom keyboard shortcuts and mouse bindings
 config.keys = {

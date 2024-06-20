@@ -7,16 +7,8 @@ require("obsidian").setup({
     -- current markdown file being edited.
     workspaces = {
       {
-        name = "personal",
-        path = "~/vaults/Journal",
-      },
-      {
-        name = "work",
+        name = "notes",
         path = "~/vaults/Notes",
-        -- Optional, override certain settings.
-        overrides = {
-          notes_subdir = "notes",
-        },
       },
     },
 
@@ -24,15 +16,13 @@ require("obsidian").setup({
     -- 'workspaces'. For example:
     -- dir = "~/vaults/work",
 
-    -- Optional, if you keep notes in a specific subdirectory of your vault.
-    notes_subdir = "notes",
     -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
     -- levels defined by "vim.log.levels.*".
     log_level = vim.log.levels.INFO,
 
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
-      folder = "notes/dailies",
+      folder = "Notes/dailies",
       -- Optional, if you want to change the date format for the ID of daily notes.
       date_format = "%Y-%m-%d",
       -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -51,7 +41,7 @@ require("obsidian").setup({
 
     -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
     -- way then set 'mappings = {}'.
-    new_notes_location = "notes_subdir",
+
     ---@param title string|?
     ---@return string
     note_id_func = function(title)

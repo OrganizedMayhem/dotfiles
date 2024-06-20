@@ -1,5 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="agnoster"
+source ${ZSH}/oh-my-zsh.sh
+
 export GOPATH=/opt/go_modules/
 source $HOME/.cargo/env
 export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
@@ -29,6 +31,7 @@ PATH=$PATH:$HOME/.local/bin
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
+	glow
 	gitfast
 	ansible
 	docker
@@ -44,12 +47,11 @@ plugins=(
 	colorize
 	sdk
 	golang
-    wd
-    command-not-found
-    virtualenv
+	wd
+	command-not-found
+	virtualenv
 )
 
-source $ZSH/oh-my-zsh.sh
 export LIBVA_MESSAGING_LEVEL=1
 source /opt/zsh.d/variables/*.zsh
 source /opt/zsh.d/autocomplete/*.zsh
@@ -86,9 +88,7 @@ no_comments() {
 		;;
 	esac
 }
-alias personal='cd ~/personal'
 # Usage
-# cat_no_comments filename
 
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='nvim'
@@ -102,4 +102,4 @@ decode() {
 	echo
 }
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export VIRTUAL_ENV_DISABLE_PROMPT=0

@@ -62,6 +62,11 @@ return require("packer").startup(function(use)
             require("sad").setup {}
         end
     })
+    use {"ellisonleao/glow.nvim", 
+        config = function()
+            require("glow").setup()
+        end
+    }
     use({
         "epwalsh/obsidian.nvim",
         tag = "*", -- recommended, use latest release instead of latest commit
@@ -71,10 +76,7 @@ return require("packer").startup(function(use)
         config = function()
             require("obsidian").setup({
                 workspaces = {{
-                    name = "personal",
-                    path = "~/vaults/Journal"
-                }, {
-                    name = "work",
+                    name = "notes",
                     path = "~/vaults/Notes"
                 }}
 
