@@ -1,105 +1,69 @@
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="agnoster"
-source ${ZSH}/oh-my-zsh.sh
-
+# Initialize and configure Zsh
+autoload -Uz compinit
+compinit
+# Better tab completion
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# Environment variables
 export GOPATH=/opt/go_modules/
-source $HOME/.cargo/env
 export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of loking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-#zstyle ':omz:update' mode auto #options: disabled, auto, reminder      # update automatically without asking
-#zstyle ':omz:update' frequency 1
-# Uncomment the following line if pasting URLs and other text is messed up.
-DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="false"
-PATH=$PATH:$HOME/.local/bin
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(
-	glow
-	gitfast
-	ansible
-	docker
-	azure
-	kubectl
-	helm
-	terraform
-	vault
-	rust
-	nmap
-	ripgrep
-	fzf
-	colorize
-	sdk
-	golang
-	wd
-	command-not-found
-	virtualenv
-)
-
 export LIBVA_MESSAGING_LEVEL=1
-source /opt/zsh.d/variables/*.zsh
-source /opt/zsh.d/autocomplete/*.zsh
-source /opt/zsh.d/work/*.zsh
-# User configuration
-alias distro-sync="sudo dnf5 clean all && sudo dnf5 distro-sync"
 export MICROK8s=$(hostname -I | awk '{print $1}')
-# Preferred editor for local and remote sessions
-# Define the function
-# Define the function
-no_comments() {
-	# Check for file existence
-	if [[ ! -f $1 ]]; then
-		echo "File not found!"
-		return 1
-	fi
-
-	# Determine file type and set appropriate comment handling
-	case $1 in
-	*.tf) # Terraform files
-		# Removing single-line comments starting with # or //
-		# and multi-line comments between /* and */
-		# then removing empty lines
-		sed '/^#/d; /^\/\//d; /\/\*/,/\*\//d' $1 | grep -v '^\s*$'
-		;;
-	*.py)
-		grep -v '^#' $1 | grep -v '^\s*$' # Python files
-		;;
-	*.js | *.ts)
-		grep -v '^//' $1 | grep -v '^\s*$' # JavaScript/TypeScript files
-		;;
-	*)                                 # Default case for other file types
-		grep -v '^#' $1 | grep -v '^\s*$' # Generic case assuming # as comment
-		;;
-	esac
-}
-# Usage
-
-if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='nvim'
-else
-	export EDITOR='nvim'
-fi
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-decode() {
-	echo "$1" | base64 -d
-	echo
-}
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export SDKMAN_DIR="/opt/sdkman"
 export VIRTUAL_ENV_DISABLE_PROMPT=0
+export PATH=$PATH:/opt/aqua/bin
+# Load Cargo environment
+source $HOME/.cargo/env
+
+# SDKMAN initialization
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# Add local binaries to PATH
+export PATH=$PATH:$HOME/.local/bin
+
+# Set editor
+export EDITOR='nvim'
+
+# Oh My Zsh update settings
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 1
+
+# Disable magic functions
+export DISABLE_MAGIC_FUNCTIONS="true"
+
+# Source Zsh configuration files
+source_files() {
+    for file in "$1"/*.zsh; do
+        [[ -e "$file" ]] && source "$file"
+    done
+}
+source_files /opt/zsh.d/variables
+source_files /opt/zsh.d/autocomplete
+source_files /opt/zsh.d/work
+
+# Aliases
+alias distro-sync="sudo dnf5 clean all && sudo dnf5 distro-sync"
+alias docker-run='docker run --rm -it '$1
+
+# Function to remove comments from files
+no_comments() {
+    [[ ! -f $1 ]] && echo "File not found!" && return 1
+
+    case $1 in
+        *.tf)  sed '/^#/d; /^\/\//d; /\/\*/,/\*\//d' "$1" | grep -v '^\s*$' ;; # Terraform
+        *.py)  grep -v '^#' "$1" | grep -v '^\s*$' ;; # Python
+        *.js | *.ts) grep -v '^//' "$1" | grep -v '^\s*$' ;; # JavaScript/TypeScript
+        *)     grep -v '^#' "$1" | grep -v '^\s*$' ;; # Default
+    esac
+}
+
+# Function to decode base64 strings
+decode() {
+    echo "$1" | base64 -d
+    echo
+}
+wd() {
+    . /usr/local/bin/wd
+}
+# Initialize Starship prompt
+eval "$(starship init zsh)"
+
