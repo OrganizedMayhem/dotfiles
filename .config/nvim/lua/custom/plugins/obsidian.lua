@@ -5,13 +5,12 @@ return {
 		"ibhagwan/fzf-lua",
 	},
 	config = function()
-
 		require("obsidian").setup({
 			-- A list of workspace names, paths, and configuration overrides.
 			workspaces = {
 				{
 					name = "notes",
-					path = "~/vaults/Notes",
+					path = "~/vaults/Personal",
 				},
 				{
 					name = "Work",

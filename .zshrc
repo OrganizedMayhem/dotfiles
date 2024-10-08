@@ -10,7 +10,10 @@ export LIBVA_MESSAGING_LEVEL=1
 export MICROK8s=$(hostname -I | awk '{print $1}')
 export SDKMAN_DIR="/opt/sdkman"
 export VIRTUAL_ENV_DISABLE_PROMPT=0
-export PATH=$PATH:/opt/aqua/bin
+if [ -d "/opt/aquaproj-aqua" ]; then
+    export AQUA_ROOT_DIR="/opt/aquaproj-aqua"
+fi
+export PATH="${AQUA_ROOT_DIR}/bin:$PATH"
 # Load Cargo environment
 source $HOME/.cargo/env
 

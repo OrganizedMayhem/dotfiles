@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-
+vim.opt.conceallevel = 2
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.tabstop = 2
@@ -166,6 +166,30 @@ require("lazy").setup({
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 			},
 		},
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {},
+	},
+	{
+		"ray-x/sad.nvim",
+		dependencies = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+		config = function()
+			require("sad").setup({
+				debug = false,
+				diff = "delta",
+				ls_file = "fd",
+				exact = false,
+				vsplit = false,
+				height_ratio = 0.6,
+				width_ratio = 0.6,
+			})
+		end,
 	},
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
@@ -369,31 +393,28 @@ require("lazy").setup({
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 			local servers = {
-				lua_ls = {},
-				gopls = {},
-				bashls = {},
 				ansiblels = {},
-				hadolint = {},
-				luacheck = {},
-				shellcheck = {},
-				snyk = {},
-				systemdlint = {},
-				trivy = {},
-				staticcheck = {},
+				bashls = {},
 				docker_compose_language_service = {},
 				dockerls = {},
 				gitlab_ci_ls = {},
 				golangci_lint_ls = {},
+				gopls = {},
+				hadolint = {},
 				helm_ls = {},
 				jinja_lsp = {},
+				lua_ls = {},
+				luacheck = {},
 				pylyzer = {},
-				pylsp = {},
-				snyk_ls = {},
+				shellcheck = {},
 				shellharden = {},
+				staticcheck = {},
+				systemdlint = {},
 				terraformls = {},
 				tflint = {},
-				yamlls = {},
+				trivy = {},
 				yamlfmt = {},
+				yamlls = {},
 			}
 			require("mason").setup()
 
@@ -516,13 +537,15 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "codota/tabnine-nvim", build = "./dl_binaries.sh" },
+	{
+		"codota/tabnine-nvim",
+		build = "./dl_binaries.sh",
+	},
 	{
 		"folke/tokyonight.nvim",
 		priority = 1000,
 		init = function()
 			vim.cmd.colorscheme("tokyonight-night")
-
 			-- You can configure highlights by doing something like:
 			vim.cmd.hi("Comment gui=none")
 		end,
