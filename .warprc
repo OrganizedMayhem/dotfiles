@@ -12,6 +12,7 @@ nvim:~/.config/nvim
 personal:~/personal
 PI:~/Work/PI
 platform-engineering:~/Work/platform-engineering
+nvim-plugins:~/.config/nvim/lua/custom/plugins
 rcs:~/Work/rcs
 sqa:~/Work/sqa
 sre:~/Work/sre

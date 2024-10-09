@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.229.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.231.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 - name: aquasecurity/trivy@v0.56.1
@@ -17,6 +17,7 @@ packages:
 # Kubernetes
 - name: aporia-ai/kubesurvival@v1.0.1
 - name: Azure/kubelogin@v0.1.4
+- name: Azure/aks-engine@v0.79.0
 - name: helm/helm@v3.16.1
 - name: derailed/k9s@v0.32.5
 - name: kubecost/kubectl-cost@v0.6.6
@@ -27,7 +28,7 @@ packages:
 - name: juliosueiras/terraform-lsp@v0.0.12
 - name: hadolint/hadolint@v2.12.0 #Dockerfile linter
 - name: GoogleCloudPlatform/terraformer@0.8.24
-- name: terramate-io/terramate@v0.10.6
+- name: terramate-io/terramate@v0.10.7
   # Database
 #- name: surrealdb/surrealdb@v1.0.0-beta.11
 # Other Packages

@@ -19,10 +19,9 @@ return {
 			},
 			log_level = vim.log.levels.INFO,
 			daily_notes = {
-				folder = "dailies",
 				date_format = "%Y-%m-%d",
 				alias_format = "%B %-d, %Y",
-				template = nil,
+				template = "daily.md",
 			},
 
 			completion = { nvim_cmp = true, min_chars = 2 },
@@ -98,6 +97,8 @@ return {
 			picker = {
 				name = "fzf-lua",
 				mappings = { new = "<C-x>", insert_link = "<C-l>" },
+				tag_mappings = name,
+				note_mappings = use_advanced_uri,
 			},
 
 			sort_by = "modified",

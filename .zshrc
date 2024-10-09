@@ -1,6 +1,17 @@
 # Initialize and configure Zsh
 autoload -Uz compinit
 compinit
+# Save history between sessions
+HISTFILE=~/.zsh_history      # Location of history file
+HISTSIZE=10000               # Number of commands to keep in memory
+SAVEHIST=10000               # Number of commands to save to history file
+
+# Share history across multiple sessions
+setopt appendhistory          # Append new history to the file instead of overwriting
+setopt incappendhistory       # Immediately append new commands to the history file
+setopt sharehistory           # Share history across all sessions
+setopt histfindnodups         # Avoid showing duplicates when searching history
+setopt HIST_EXPIRE_DUPS_FIRST 
 # Better tab completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # Environment variables
