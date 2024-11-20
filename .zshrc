@@ -5,7 +5,6 @@ compinit
 HISTFILE=~/.zsh_history      # Location of history file
 HISTSIZE=10000               # Number of commands to keep in memory
 SAVEHIST=10000               # Number of commands to save to history file
-
 # Share history across multiple sessions
 setopt appendhistory          # Append new history to the file instead of overwriting
 setopt incappendhistory       # Immediately append new commands to the history file
@@ -23,6 +22,9 @@ export SDKMAN_DIR="/opt/sdkman"
 export VIRTUAL_ENV_DISABLE_PROMPT=0
 if [ -d "/opt/aquaproj-aqua" ]; then
     export AQUA_ROOT_DIR="/opt/aquaproj-aqua"
+else
+   sudo  mkdir -p /opt/aquaproj-aqua
+   sudo chown -R sevans:sevans /opt/aquaproj-aqua
 fi
 export PATH="${AQUA_ROOT_DIR}/bin:$PATH"
 # Load Cargo environment
@@ -30,6 +32,12 @@ source $HOME/.cargo/env
 
 # SDKMAN initialization
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+# Check if in an SSH session
+if [[ -n $SSH_CONNECTION ]]; then
+  # Settings for SSH sessions
+  alias ls="ls --color=auto"
+  TERM="xterm-256color"
+fi
 
 # Add local binaries to PATH
 export PATH=$PATH:$HOME/.local/bin
@@ -55,7 +63,7 @@ source_files /opt/zsh.d/autocomplete
 source_files /opt/zsh.d/work
 
 # Aliases
-alias distro-sync="sudo dnf5 clean all && sudo dnf5 distro-sync"
+alias distro-sync="sudo dnf clean all && sudo dnf distro-sync"
 alias docker-run='docker run --rm -it '$1
 
 # Function to remove comments from files
@@ -71,10 +79,6 @@ no_comments() {
 }
 
 # Function to decode base64 strings
-decode() {
-    echo "$1" | base64 -d
-    echo
-}
 wd() {
     . /usr/local/bin/wd
 }

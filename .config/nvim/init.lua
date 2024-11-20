@@ -10,7 +10,8 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 -- vim.opt.relativenumber = true
-
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileformat = unix
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -22,7 +23,7 @@ vim.schedule(function()
 end)
 
 -- Enable break indent
-vim.opt.breakindent = true
+vim.opt.breakindent = false
 
 -- Save undo history
 vim.opt.undofile = true
@@ -168,15 +169,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
-		opts = {},
-	},
-	{
 		"ray-x/sad.nvim",
 		dependencies = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
 		config = function()
@@ -269,6 +261,7 @@ require("lazy").setup({
 
 		"folke/lazydev.nvim",
 		ft = "lua",
+		lazy = true,
 		opts = {
 			library = {
 				-- Load luvit types when the `vim.uv` word is found
@@ -282,7 +275,7 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
-			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -405,7 +398,7 @@ require("lazy").setup({
 				jinja_lsp = {},
 				lua_ls = {},
 				luacheck = {},
-				pylyzer = {},
+				ruff = {},
 				shellcheck = {},
 				shellharden = {},
 				staticcheck = {},
@@ -554,7 +547,7 @@ require("lazy").setup({
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = { signs = true },
 	},
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
@@ -595,7 +588,6 @@ require("lazy").setup({
 		opts = {
 			ensure_installed = {
 				"bash",
-				"c",
 				"diff",
 				"html",
 				"lua",

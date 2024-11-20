@@ -11,6 +11,7 @@ end
 config.color_scheme = "Darkside"
 config.scrollback_lines = 1000
 config.animation_fps = 60
+config.enable_scroll_bar = true
 font = "Fira Code"
 config.status_update_interval = 100
 -- Use WebGpu if available, otherwise fall back to OpenGL
