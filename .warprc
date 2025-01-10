@@ -1,3 +1,4 @@
+
 acs:~/Work/acs
 devops:~/Work/devops
 dotfiles:~/dotfiles
@@ -8,7 +9,6 @@ home:~
 library-cloud:~/Work/devops/gitlab-cloud/gitlab-library
 library-onprem:~/Work/devops/gitlab-onprem/gitlab-library
 mcs:~/Work/mcs
-notes:~/vaults/Notes
 nvim:~/.config/nvim
 personal:~/personal
 pi:~/Work/PI

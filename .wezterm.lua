@@ -13,7 +13,7 @@ config.scrollback_lines = 1000
 config.animation_fps = 60
 config.enable_scroll_bar = true
 font = "Fira Code"
-config.status_update_interval = 100
+config.status_update_interval = 1
 -- Use WebGpu if available, otherwise fall back to OpenGL
 if wezterm.gui_available and wezterm.gui.get_front_end_name() == "WebGpu" then
 	config.front_end = "WebGpu"
@@ -27,9 +27,12 @@ end
 -- Platform-specific configuration
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.enable_wayland = false
+	config.animation_fps = 144
 -- Additional Windows-specific settings here
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" or wezterm.target_triple == "aarch64-unknown-linux-gnu" then
 	config.enable_wayland = true
+	config.animation_fps = 60
+	config.window_decorations = "RESIZE"
 -- Additional Linux-specific settings here
 elseif wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
 	-- MacOS-specific settings

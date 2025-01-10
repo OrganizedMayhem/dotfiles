@@ -2,7 +2,7 @@
 
 # Inserts a blank line between shell prompts
 add_newline = true
-
+command_timeout = 1000
 [aws]
 symbol = "  "
 
@@ -23,7 +23,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
-
+style = 'bold cyan'
 [docker_context]
 symbol = " "
 
