@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.283.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.295.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -24,7 +24,7 @@ packages:
 - name: hashicorp/terraform-ls@v0.36.3
 - name: juliosueiras/terraform-lsp@v0.0.12
 - name: GoogleCloudPlatform/terraformer@0.8.24
-- name: terramate-io/terramate@v0.11.5
+- name: terramate-io/terramate@v0.11.7
   # Database
 #- name: surrealdb/surrealdb@v1.0.0-beta.11
 # Other Packages
@@ -33,7 +33,7 @@ packages:
 - name: bcicen/ctop@v0.7.7 # Top-like interface for container metrics 
 - name: slimtoolkit/slim@1.40.11
 - name: containerd/nerdctl@v2.0.2
-- name: batchcorp/plumber@v2.8.0
+- name: batchcorp/plumber@v2.9.0
 - name: ankitpokhrel/jira-cli@v1.5.2
 - name: jesseduffield/lazygit@v0.44.1
 - name: kubernetes-sigs/krew@v0.4.4
