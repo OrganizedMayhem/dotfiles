@@ -2,53 +2,52 @@ local wezterm = require("wezterm")
 
 local config = {}
 
--- Use config_builder if available for default settings
 if wezterm.config_builder then
-	config = wezterm.config_builder()
+    config = wezterm.config_builder()
 end
 
--- Base configuration
-config.color_scheme = "Darkside"
-config.scrollback_lines = 1000
-config.animation_fps = 60
+config.scrollback_lines = 10000
+
 config.enable_scroll_bar = true
-font = "Fira Code"
-config.status_update_interval = 1
--- Use WebGpu if available, otherwise fall back to OpenGL
-if wezterm.gui_available and wezterm.gui.get_front_end_name() == "WebGpu" then
-	config.front_end = "WebGpu"
-	config.webgpu_power_preference = "HighPerformance"
--- Optional fallback adapter setting can be uncommented if needed
--- config.webgpu_force_fallback_adapter = true
-else
-	config.front_end = "OpenGL"
+config.font = wezterm.font("FiraCode Nerd Font")
+config.status_update_interval = 1000
+
+local function scheme_for_appearance(appearance)
+    if appearance:find("Dark") then
+        return "Catppuccin Mocha"
+    else
+        return "Catppuccin Latte"
+    end
 end
 
--- Platform-specific configuration
+config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	config.enable_wayland = false
-	config.animation_fps = 144
--- Additional Windows-specific settings here
-elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" or wezterm.target_triple == "aarch64-unknown-linux-gnu" then
-	config.enable_wayland = true
-	config.animation_fps = 60
-	config.window_decorations = "RESIZE"
--- Additional Linux-specific settings here
-elseif wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
-	-- MacOS-specific settings
-	config.enable_wayland = false
-	-- Additional MacOS-specific settings here
+    config.default_domain = 'WSL:Ubuntu-24.04'
+    config.animation_fps = 144
+    config.font_size = 11.0
+    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+    config.wsl_domains = {
+        {
+            name = 'WSL:Ubuntu-24.04',
+            distribution = 'Ubuntu-24.04',
+            username = "sevans",
+            default_cwd = "~",
+            default_prog = {"zsh"}
+        },
+    }
+elseif wezterm.target_triple:find("linux") then
+    config.enable_wayland = true
+    config.font_size = 12.0
+    config.window_decorations = "RESIZE"
+    config.animation_fps = 60
+elseif wezterm.target_triple:find("darwin") then
+    config.font_size = 13.0
 end
 
--- Custom keyboard shortcuts and mouse bindings
 config.keys = {
-	{ key = "c", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "Clipboard" }) },
-	{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action({ PasteFrom = "Clipboard" }) },
-	-- Add more custom key bindings here
+    { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
+    { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
 }
-
--- Set tab and pane title update events
---config.pane_title = "wezterm.pane-title"
---config.tab_title = "wezterm.tab-title"
 
 return config
