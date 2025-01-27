@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.295.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.297.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -24,7 +24,7 @@ packages:
 - name: hashicorp/terraform-ls@v0.36.3
 - name: juliosueiras/terraform-lsp@v0.0.12
 - name: GoogleCloudPlatform/terraformer@0.8.24
-- name: terramate-io/terramate@v0.11.7
+- name: terramate-io/terramate@v0.11.8
   # Database
 #- name: surrealdb/surrealdb@v1.0.0-beta.11
 # Other Packages
@@ -35,11 +35,11 @@ packages:
 - name: containerd/nerdctl@v2.0.2
 - name: batchcorp/plumber@v2.9.0
 - name: ankitpokhrel/jira-cli@v1.5.2
-- name: jesseduffield/lazygit@v0.44.1
+- name: jesseduffield/lazygit@v0.45.2
 - name: kubernetes-sigs/krew@v0.4.4
 - name: cbroglie/mustache@v1.4.0
 - name: GoTestTools/gotestfmt@v2.5.0
 - name: BurntSushi/xsv@0.13.0
 - name: Melkeydev/go-blueprint@v0.10.3
-- name: google/go-containerregistry@v0.20.2
+- name: google/go-containerregistry@v0.20.3
 # fpm fubectl jf jj kl-lint kubelift rg task tea watchman watchmanctl
