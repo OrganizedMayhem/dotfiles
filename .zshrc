@@ -1,18 +1,22 @@
 # Initialize and configure Zsh
 autoload -Uz compinit
 compinit
+
 # Save history between sessions
 HISTFILE=~/.zsh_history      # Location of history file
 HISTSIZE=10000               # Number of commands to keep in memory
 SAVEHIST=10000               # Number of commands to save to history file
+
 # Share history across multiple sessions
 setopt appendhistory          # Append new history to the file instead of overwriting
 setopt incappendhistory       # Immediately append new commands to the history file
 setopt sharehistory           # Share history across all sessions
 setopt histfindnodups         # Avoid showing duplicates when searching history
 setopt HIST_EXPIRE_DUPS_FIRST 
+
 # Better tab completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 # Environment variables
 export GOPATH=/opt/go_modules/
 export AZCOPY_AUTO_LOGIN_TYPE=AZCLI
@@ -20,23 +24,27 @@ export LIBVA_MESSAGING_LEVEL=1
 export MICROK8s=$(hostname -I | awk '{print $1}')
 export SDKMAN_DIR="/opt/sdkman"
 export VIRTUAL_ENV_DISABLE_PROMPT=0
+
+# Conditional Aqua setup
 if [ -d "/opt/aquaproj-aqua" ]; then
     export AQUA_ROOT_DIR="/opt/aquaproj-aqua"
 else
-   sudo  mkdir -p /opt/aquaproj-aqua
-   sudo chown -R sevans:sevans /opt/aquaproj-aqua
+    sudo mkdir -p /opt/aquaproj-aqua
+    sudo chown -R $(whoami) /opt/aquaproj-aqua
+    export AQUA_ROOT_DIR="/opt/aquaproj-aqua"
 fi
 export PATH="${AQUA_ROOT_DIR}/bin:$PATH"
-# Load Cargo environment
-source $HOME/.cargo/env
+
+# Load Cargo environment if exists
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # SDKMAN initialization
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
 # Check if in an SSH session
 if [[ -n $SSH_CONNECTION ]]; then
-  # Settings for SSH sessions
-  alias ls="ls --color=auto"
-  TERM="xterm-256color"
+    alias ls="ls --color=auto"
+    TERM="xterm-256color"
 fi
 
 # Add local binaries to PATH
@@ -54,10 +62,14 @@ export DISABLE_MAGIC_FUNCTIONS="true"
 
 # Source Zsh configuration files
 source_files() {
-    for file in "$1"/*.zsh; do
-        [[ -e "$file" ]] && source "$file"
-    done
+    local dir="$1"
+    if [[ -d "$dir" ]]; then
+        for file in "$dir"/*.zsh; do
+            [[ -f "$file" ]] && source "$file"
+        done
+    fi
 }
+
 source_files /opt/zsh.d/variables
 source_files /opt/zsh.d/autocomplete
 source_files /opt/zsh.d/work
@@ -79,9 +91,10 @@ no_comments() {
 }
 
 # Function to decode base64 strings
-wd() {
+[[ -f /usr/local/bin/wd ]] && wd() {
     . /usr/local/bin/wd
 }
+
 # Initialize Starship prompt
-eval "$(starship init zsh)"
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
