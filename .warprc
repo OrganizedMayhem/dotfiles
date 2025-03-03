@@ -1,5 +1,6 @@
 
 acs:~/Work/acs
+daag:~/Work/daag
 devops:~/Work/devops
 dotfiles:~/dotfiles
 downloads:~/Downloads
@@ -10,10 +11,10 @@ library-cloud:~/Work/devops/gitlab-cloud/gitlab-library
 library-onprem:~/Work/devops/gitlab-onprem/gitlab-library
 mcs:~/Work/mcs
 nvim:~/.config/nvim
+nvim-plugins:~/.config/nvim/lua/custom/plugins
 personal:~/personal
 pi:~/Work/PI
 platform-engineering:~/Work/platform-engineering
-nvim-plugins:~/.config/nvim/lua/custom/plugins
 rcs:~/Work/rcs/rcs-oics
 sqa:~/Work/sqa
 sre:~/Work/sre

@@ -3,9 +3,10 @@ autoload -Uz compinit
 compinit
 
 # Save history between sessions
-HISTFILE=~/.zsh_history      # Location of history file
-HISTSIZE=10000               # Number of commands to keep in memory
-SAVEHIST=10000               # Number of commands to save to history file
+HISTFILE=~/.zsh_history       # Location of history file
+HISTSIZE=1000                 # Number of commands to keep in memory
+SAVEHIST=1000                 # Number of commands to save to history file
+AUTOCOMPLETE='/usr/share/zsh/site-functions/'
 
 # Share history across multiple sessions
 setopt appendhistory          # Append new history to the file instead of overwriting
@@ -53,9 +54,9 @@ export PATH=$PATH:$HOME/.local/bin
 # Set editor
 export EDITOR='nvim'
 
-# Oh My Zsh update settings
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 1
+## Oh My Zsh update settings
+#izstyle ':omz:update' mode auto
+#zstyle ':omz:update' frequency 1
 
 # Disable magic functions
 export DISABLE_MAGIC_FUNCTIONS="true"
@@ -71,7 +72,6 @@ source_files() {
 }
 
 source_files /opt/zsh.d/variables
-source_files /opt/zsh.d/autocomplete
 source_files /opt/zsh.d/work
 
 # Aliases
@@ -96,5 +96,6 @@ no_comments() {
 }
 
 # Initialize Starship prompt
-[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
+#[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
+ eval "$(starship init zsh)"
 
