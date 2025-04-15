@@ -11,7 +11,7 @@ library-cloud:~/Work/devops/gitlab-cloud/gitlab-library
 library-onprem:~/Work/devops/gitlab-onprem/gitlab-library
 mcs:~/Work/mcs
 nvim:~/.config/nvim
-nvim-plugins:~/.config/nvim/lua/custom/plugins
+nvim-plugins:~/.config/nvim/lua/custom
 personal:~/personal
 pi:~/Work/PI
 platform-engineering:~/Work/platform-engineering
