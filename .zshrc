@@ -90,10 +90,6 @@ no_comments() {
     esac
 }
 
-# Function to decode base64 strings
-[[ -f /usr/local/bin/wd ]] && wd() {
-    . /usr/local/bin/wd
-}
 
 # Initialize Starship prompt
 #[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"

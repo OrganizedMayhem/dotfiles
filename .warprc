@@ -7,8 +7,7 @@ downloads:~/Downloads
 embedded:~/Work/embedded
 feign:~/Work/feign
 home:~
-library-cloud:~/Work/devops/gitlab-cloud/gitlab-library
-library-onprem:~/Work/devops/gitlab-onprem/gitlab-library
+library:~/Work/devops/gitlab-library
 mcs:~/Work/mcs
 nvim:~/.config/nvim
 nvim-plugins:~/.config/nvim/lua/custom
@@ -19,5 +18,6 @@ rcs:~/Work/rcs/rcs-oics
 sqa:~/Work/sqa
 sre:~/Work/sre
 vaults:~/vaults
+veer-project:~/personal/veer-project
 workstation:~/Work/workstation
 work:~/vaults/work

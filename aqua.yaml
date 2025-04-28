@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.345.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.351.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -16,7 +16,7 @@ packages:
 - name: aporia-ai/kubesurvival@v1.0.1
 - name: Azure/kubelogin@v0.2.7
 - name: Azure/aks-engine@v0.79.0
-- name: derailed/k9s@v0.50.2
+- name: derailed/k9s@v0.50.4
 - name: kubecost/kubectl-cost@v0.6.6
 #- name: komodorio/helm-dashboard@v1.3.3
 # IaC/LSP
@@ -34,12 +34,12 @@ packages:
 - name: slimtoolkit/slim@1.40.11
 - name: containerd/nerdctl@v2.0.4
 - name: batchcorp/plumber@v2.9.0
-- name: ankitpokhrel/jira-cli@v1.5.2
-- name: jesseduffield/lazygit@v0.48.0
+- name: ankitpokhrel/jira-cli@v1.6.0
+- name: jesseduffield/lazygit@v0.49.0
 - name: kubernetes-sigs/krew@v0.4.5
 - name: cbroglie/mustache@v1.4.0
 - name: GoTestTools/gotestfmt@v2.5.0
 - name: BurntSushi/xsv@0.13.0
-- name: Melkeydev/go-blueprint@v0.10.5
+- name: Melkeydev/go-blueprint@v0.10.7
 - name: google/go-containerregistry@v0.20.3
 # fpm fubectl jf jj kl-lint kubelift rg task tea watchman watchmanctl

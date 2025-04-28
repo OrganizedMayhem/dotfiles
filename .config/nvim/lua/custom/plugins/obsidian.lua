@@ -1,5 +1,5 @@
 return {
-	"epwalsh/obsidian.nvim",
+	"obsidian-nvim/obsidian.nvim",
 	dependencies = { "nvim-lua/plenary.nvim", "ibhagwan/fzf-lua" },
 	config = function()
 		require("obsidian").setup({
