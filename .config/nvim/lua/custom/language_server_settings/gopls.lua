@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	lazy = true,
 	opts = {
 		servers = {
 			gopls = {

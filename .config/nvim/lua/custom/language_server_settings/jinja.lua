@@ -2,6 +2,7 @@ return {
 	-- LSP Configuration
 	{
 		"neovim/nvim-lspconfig",
+		lazy = true,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/nvim-cmp",
