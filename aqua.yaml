@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.360.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.363.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -16,7 +16,7 @@ packages:
 - name: aporia-ai/kubesurvival@v1.0.1
 - name: Azure/kubelogin@v0.2.8
 - name: Azure/aks-engine@v0.79.0
-- name: derailed/k9s@v0.50.4
+- name: derailed/k9s@v0.50.5
 - name: kubecost/kubectl-cost@v0.6.6
 #- name: komodorio/helm-dashboard@v1.3.3
 # IaC/LSP

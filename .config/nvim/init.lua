@@ -6,9 +6,9 @@ vim.g.have_nerd_font = true
 vim.opt.conceallevel = 2
 -- Make line numbers default
 vim.opt.number = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 -- vim.opt.relativenumber = true
 vim.opt.fileencoding = "utf-8"
@@ -18,10 +18,6 @@ vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
-
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
 
 -- Enable break indent
 vim.opt.breakindent = false
@@ -147,9 +143,6 @@ require("lazy").setup({
 	},
 	{
 		import = "custom.language_server_settings",
-	},
-	{
-		import = "custom.format",
 	},
 	{
 		import = "custom.autocomplete",
