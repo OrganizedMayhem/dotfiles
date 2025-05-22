@@ -11,7 +11,7 @@ return {
 				},
 				{
 					name = "Work",
-					path = "~/vaults/work",
+					path = "~/vaults/Work",
 				},
 			},
 			log_level = vim.log.levels.INFO,
