@@ -7,7 +7,7 @@ if wezterm.config_builder then
 end
 
 config.scrollback_lines = 10000
-
+config.front_end = "WebGpu"
 config.enable_scroll_bar = true
 config.font = wezterm.font("FiraCode Nerd Font")
 config.status_update_interval = 1000

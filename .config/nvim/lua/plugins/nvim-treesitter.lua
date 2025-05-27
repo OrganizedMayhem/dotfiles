@@ -1,27 +1,31 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function () 
-        local configs = require("nvim-treesitter.configs")
+	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
+	build = ":TSUpdate", -- This command ensures parsers are updated/installed
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			-- A list of parser names, or "all" (the listed parsers MUST always be installed)
+			ensure_installed = {
+				"lua",
+				"go",
+				"python",
+				"vim",
+				"vimdoc",
+				"json",
+				"bash",
+				-- Add more language parsers you want to install here
+			},
+			-- Install parsers synchronously (only applied to `ensure_installed`)
+			sync_install = false,
 
-        configs.setup({
-            ensure_installed = {
-                "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "markdown", "markdown_inline"
-            },
-            auto_install = true,
-            sync_install = false,
-            highlight = { enable = true },
-            indent = { enable = true },  
-
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<Enter>", -- set to `false` to disable one of the mappings
-                    node_incremental = "<Enter>",
-                    scope_incremental = false,
-                    node_decremental = "<Backspace>",
-                },
-            },
-        })
-    end
+			highlight = {
+				enable = true, -- Enable syntax highlighting
+			},
+			indent = {
+				enable = false, -- Enable indentation
+			},
+			-- You can also disable specific languages from being highlighted/indented if needed
+			-- disable = { "tex", "go" },
+		})
+	end,
 }
