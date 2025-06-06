@@ -1,0 +1,146 @@
+{
+    // General editor settings (feel free to adjust)
+    "icon_theme": "Material Icon Theme",
+    "telemetry": {
+        "metrics": false,
+        "diagnostics": false
+    },
+    "agent": {
+        "model_parameters": [],
+        "inline_assistant_model": {
+            "provider": "google",
+            "model": "gemini-2.5-pro-exp-03-25"
+        },
+        "version": "2"
+    },
+    "edit_predictions": {
+        "mode": "subtle",
+        "copilot": {
+            "proxy": null,
+            "proxy_no_verify": null
+        },
+        "enabled_in_text_threads": true
+    },
+    "theme": "Material Dark", // My current favorite, but choose yours!
+    "buffer_font_size": 15,
+    "tab_size": 4,
+    "autosave": "on_focus_change",
+    "format_on_save": "on", // Let's keep things tidy!
+    "show_completions_on_input": true, // Essential for autocompletion
+    "preferred_line_length": 88, // For Python (Black-compatible)
+    // Language-specific configurations
+    "features": {
+        "edit_prediction_provider": "supermaven"
+    },
+    "languages": {
+        "Python": {
+            "language_servers": ["pylsp", "pyright", "ruff"],
+            "tab_size": 4,
+            "format_on_save": "on",
+            "formatter": "language_server"
+        },
+        "Go": {
+            "tab_size": 4,
+            "format_on_save": "on",
+            "formatter": "language_server",
+            "language_servers": ["gopls"]
+        }
+    },
+    // LSP (Language Server Protocol) specific settings
+    "lsp": {
+        "pyright": {
+            // These settings are passed to the Pyright language server.
+            // Many of these are identical or similar to Pylance settings.
+            "settings": {
+                // --- Type Checking & Analysis ---
+                "python.analysis.typeCheckingMode": "standard", // "off", "basic", "standard", or "strict"
+                // "basic" is a good default. "strict" is for rigorous type checking.
+                "python.analysis.diagnosticMode": "workspace", // "openFilesOnly" or "workspace"
+                "python.analysis.useLibraryCodeForTypes": true, // Analyze library code for types if stubs are missing.
+                // Set to false for potentially faster analysis if stubs are comprehensive.
+                // --- Import Resolution & Paths ---
+                "python.analysis.autoSearchPaths": true, // Automatically add common source directories like 'src'.
+                "python.analysis.extraPaths": [
+                    // Manually add paths for import resolution.
+                    "src",
+                    "lib"
+                    // "/path/to/another/custom_lib"
+                ],
+                // --- Analysis Scope ---
+                "python.analysis.include": [
+                    // Glob patterns for directories/files to include in analysis.
+                    // Defaults to the workspace root if empty.
+                    // "src_py"
+                ],
+                "python.analysis.exclude": [
+                    // Glob patterns for directories/files to exclude from analysis.
+                    "**/node_modules",
+                    "**/__pycache__",
+                    ".venv",
+                    "*.test.py",
+                    "tests/"
+                ],
+                // --- Diagnostics & Reports (Examples) ---
+                // You can customize the severity of specific diagnostics.
+                // Refer to Pyright/Pylance documentation for available diagnostic rule names.
+                "python.analysis.diagnosticSeverityOverrides": {
+                    "reportMissingImports": "warning", // "error", "warning", "information", "none"
+                    "reportUnusedVariable": "information",
+                    "reportPrivateUsage": "warning",
+                    "reportTypedDictNotRequiredAccess": "none"
+                },
+                "python.analysis.stubPath": "typings", // Path to a directory containing custom type stubs.
+                // --- Inlay Hints (Display depends on Zed's specific support for these LSP settings) ---
+                // These settings control inline hints for variable types, function return types, etc.
+                // Note: Zed might also have its own global or language-specific editor settings for inlay hints.
+                "pyright.inlayHints.variableTypes": true,
+                "pyright.inlayHints.functionReturnTypes": true,
+                "pyright.inlayHints.callArgumentNames": "all", // "off", "partial", "all" (shows names for all arguments)
+                "pyright.inlayHints.parameterTypes": true,
+                // --- Other Pylance/Pyright Features ---
+                "python.analysis.autoImportCompletions": true, // Offer auto-imports in completion suggestions.
+                "python.analysis.importFormat": "absolute", // "absolute" or "relative" for auto-imports.
+                "python.analysis.indexing": true, // Index user files and libraries for faster and more complete IntelliSense.
+                "python.analysis.completeFunctionParens": true // Adds parentheses to function completions.
+            }
+            // "initialization_options": {
+            //   // Some LSPs might take initialization options here. For Pyright,
+            //   // settings are typically passed via workspace/didChangeConfiguration or the "settings" key above.
+            // }
+        },
+        "pylsp": {
+            "settings": {
+                "plugins": {
+                    "pycodestyle": {
+                        "enabled": true,
+                        "ignore": ["E501"]
+                    }
+                }
+            }
+        },
+        "ruff": {
+            // If you've installed the Ruff LSP extension, Zed should pick it up.
+            // Ruff's primary role here would be linting and formatting.
+            // Ensure `ruff` is installed in your Python environment or globally.
+            // Configuration for ruff is typically done via `ruff.toml` or `pyproject.toml` in your project.
+        },
+        "gopls": {
+            // Ensure `gopls` is installed (`go install golang.org/x/tools/gopls@latest`)
+            // and in your PATH.
+            "initialization_options": {
+                // Also configurable under languages.Go.language_server_settings
+                "ui.semanticTokens": true,
+                "staticcheck": true,
+                "hints": {
+                    "assignVariableTypes": true,
+                    "compositeLiteralFields": true,
+                    "compositeLiteralTypes": true,
+                    "constantValues": true,
+                    "functionTypeParameters": true,
+                    "parameterNames": true,
+                    "rangeVariableTypes": true
+                }
+            }
+        }
+    }
+}

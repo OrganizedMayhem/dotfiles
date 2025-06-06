@@ -1,0 +1,25 @@
+[language-server.gopls]
+command = "gopls"
+# Optional: Add specific settings for gopls here if needed
+# args = ["-remote=auto"] # Example, though gopls usually works well by default
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[[language]]
+name = "go"
+scope = "source.go"
+file-types = ["go", "mod", "work", "sum"]
+roots = ["Gopkg.toml", "go.mod"]
+language-servers = ["gopls"]
+auto-format = true
+
+[[language]]
+name = "python"
+scope = "source.python"
+file-types = ["py", "pyw", "pyi", "ipy"] # "ipynb" can also be added if you work with notebooks
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "Pipfile", "requirements.txt", ".hg"]
+# Choose one language server: pyright is generally recommended for its performance and features.
+language-servers = ["pyright"]
+auto-format = true

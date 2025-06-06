@@ -1,0 +1,43 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v4.374.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+# Security Tools
+#- name: azure/azure-workload-identity@v1.1.0
+# Kubernetes
+- name: aporia-ai/kubesurvival@v1.0.1
+- name: Azure/kubelogin@v0.2.8
+- name: Azure/aks-engine@v0.79.0
+- name: derailed/k9s@v0.50.6
+- name: kubecost/kubectl-cost@v0.6.6
+#- name: komodorio/helm-dashboard@v1.3.3
+# IaC/LSP
+- name: hashicorp/terraform-plugin-docs@v0.21.0
+- name: hashicorp/terraform-ls@v0.36.4
+- name: juliosueiras/terraform-lsp@v0.0.12
+- name: GoogleCloudPlatform/terraformer@0.8.30
+- name: terramate-io/terramate@v0.13.1
+# Other Packages
+- name: wagoodman/dive@v0.13.1
+- name: bcicen/ctop@v0.7.7 # Top-like interface for container metrics 
+- name: slimtoolkit/slim@1.40.11
+- name: containerd/nerdctl@v2.1.2
+- name: batchcorp/plumber@v2.9.0
+- name: ankitpokhrel/jira-cli@v1.6.0
+- name: jesseduffield/lazygit@v0.51.1
+- name: kubernetes-sigs/krew@v0.4.5
+- name: cbroglie/mustache@v1.4.0
+- name: GoTestTools/gotestfmt@v2.5.0
+- name: BurntSushi/xsv@0.13.0
+- name: Melkeydev/go-blueprint@v0.10.10
+- name: google/go-containerregistry@v0.20.5
+# fpm fubectl jf jj kl-lint kubelift rg task tea watchman watchmanctl
+name: bonnefoa/kubectl-fzf@v3.0.3
