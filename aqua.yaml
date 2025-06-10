@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.374.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.375.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -24,7 +24,7 @@ packages:
 - name: hashicorp/terraform-ls@v0.36.4
 - name: juliosueiras/terraform-lsp@v0.0.12
 - name: GoogleCloudPlatform/terraformer@0.8.30
-- name: terramate-io/terramate@v0.13.1
+- name: terramate-io/terramate@v0.13.2
 # Other Packages
 - name: wagoodman/dive@v0.13.1
 - name: bcicen/ctop@v0.7.7 # Top-like interface for container metrics 
