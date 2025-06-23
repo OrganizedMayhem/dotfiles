@@ -28,26 +28,14 @@ return {
 			disableLanguageServices = false, -- Disables hover, completion, etc.
 			disableOrganizeImports = false, -- Disables organize imports command
 			disableTaggedHints = false, -- Disables grayed out unreachable code
-
-			-- Deprecated but still supported
-			openFilesOnly = nil, -- Use python.analysis.diagnosticMode instead
-			useLibraryCodeForTypes = nil, -- Use python.analysis.useLibraryCodeForTypes instead
-			typeCheckingMode = nil, -- Use python.analysis.typeCheckingMode instead
 		},
 
 		-- Python analysis settings
 		python = {
-			-- Python interpreter path
-			pythonPath = nil, -- Auto-detected if nil, or specify: ".venv/bin/python"
-
-			-- Virtual environment settings (less robust than pythonPath)
-			venvPath = nil, -- Path to directory containing venvs: "./venvs"
-			venv = nil, -- Name of venv to use: "myproject"
-
 			analysis = {
 				-- Core analysis settings
-				typeCheckingMode = "basic", -- "off", "basic", "standard", "strict"
-				diagnosticMode = "openFilesOnly", -- "openFilesOnly", "workspace"
+				typeCheckingMode = "standard", -- "off", "basic", "standard", "strict"
+				diagnosticMode = "workspace", -- "openFilesOnly", "workspace"
 				logLevel = "Information", -- "Error", "Warning", "Information", "Trace"
 
 				-- Path and import settings
@@ -63,7 +51,6 @@ return {
 				diagnosticSeverityOverrides = {
 					-- Type checking diagnostics
 					reportGeneralTypeIssues = "error", -- General type problems
-					reportPropertyTypeMismatch = "error", -- Property type mismatches
 					reportFunctionMemberAccess = "error", -- Invalid function member access
 					reportMissingImports = "error", -- Missing imports
 					reportMissingModuleSource = "warning", -- Missing module source
@@ -87,46 +74,26 @@ return {
 					-- Variable analysis
 					reportUndefinedVariable = "error", -- Undefined variables
 					reportUnboundVariable = "error", -- Unbound variables
-					reportInvalidStringEscapeSequence = "error", -- Invalid escape sequences
-					reportInvalidTypeVarUse = "error", -- Invalid TypeVar usage
 					reportSelfClsParameterName = "warning", -- self/cls parameter naming
 					reportConstantRedefinition = "error", -- Constant redefinition
 
 					-- Call analysis
-					reportIncompatibleMethodOverride = "error", -- Method override issues
 					reportIncompatibleVariableOverride = "error", -- Variable override issues
 					reportUntypedBaseClass = "none", -- Untyped base classes
 					reportUntypedClassDecorator = "none", -- Untyped class decorators
 					reportUntypedFunctionDecorator = "none", -- Untyped function decorators
 					reportUntypedNamedTuple = "none", -- Untyped NamedTuple
 
-					-- Argument analysis
-					reportCallInDefaultInitializer = "none", -- Calls in default initializers
-					reportUnnecessaryIsInstance = "none", -- Unnecessary isinstance
-					reportUnnecessaryCast = "none", -- Unnecessary cast
-					reportAssertAlwaysTrue = "warning", -- Assert always true
-					reportUnnecessaryComparison = "none", -- Unnecessary comparisons
-					reportUnnecessaryContains = "none", -- Unnecessary contains
-					reportUnusedCallResult = "none", -- Unused call results
-
 					-- Advanced checks
 					reportPrivateUsage = "none", -- Private member usage
 					reportPrivateImportUsage = "error", -- Private import usage
 					reportTypeCommentUsage = "none", -- Type comment usage
 					reportIncompatibleMethodOverride = "error", -- Method override compatibility
-					reportInvalidStubStatement = "none", -- Invalid stub statements
-					reportIncompleteStub = "none", -- Incomplete stub files
-					reportUnsupportedDunderAll = "warning", -- Unsupported __all__
-					reportUnusedCoroutine = "error", -- Unused coroutines
 
 					-- Experimental and strict checks
-					reportMatchNotExhaustive = "none", -- Non-exhaustive match statements
 					reportShadowedImports = "none", -- Shadowed imports
-					reportUninitializedInstanceVariable = "none", -- Uninitialized instance vars
 					reportInvalidTypeForm = "error", -- Invalid type forms
-					reportMissingParameterType = "none", -- Missing parameter types
 					reportMissingTypeArgument = "none", -- Missing type arguments
-					reportUnknownParameterType = "none", -- Unknown parameter types
 					reportUnknownVariableType = "none", -- Unknown variable types
 					reportUnknownMemberType = "none", -- Unknown member types
 					reportUnknownArgumentType = "none", -- Unknown argument types

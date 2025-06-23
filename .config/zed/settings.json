@@ -1,136 +1,163 @@
 {
-    // General editor settings (feel free to adjust)
-    "icon_theme": "Material Icon Theme",
     "telemetry": {
         "metrics": false,
         "diagnostics": false
     },
-    "agent": {
-        "model_parameters": [],
-        "inline_assistant_model": {
-            "provider": "google",
-            "model": "gemini-2.5-pro-exp-03-25"
-        },
-        "version": "2"
-    },
-    "edit_predictions": {
-        "mode": "subtle",
-        "copilot": {
-            "proxy": null,
-            "proxy_no_verify": null
-        },
-        "enabled_in_text_threads": true
-    },
-    "theme": "Material Dark", // My current favorite, but choose yours!
-    "buffer_font_size": 15,
+    "theme": "Gruvbox Dark Hard",
+    "ui_font_size": 18,
+    "buffer_font_size": 18,
+    "ui_font_family": "FiraCode Nerd Font",
+
+    "vim_mode": false,
+    "cursor_blink": true,
+    "show_line_numbers": true,
+    "show_whitespaces": "selection",
+    "wrap_guides": [80, 120],
+    "preferred_line_length": 88,
+    "soft_wrap": "preferred_line_length",
     "tab_size": 4,
-    "autosave": "on_focus_change",
-    "format_on_save": "on", // Let's keep things tidy!
-    "show_completions_on_input": true, // Essential for autocompletion
-    "preferred_line_length": 88, // For Python (Black-compatible)
-    // Language-specific configurations
-    "features": {
-        "edit_prediction_provider": "supermaven"
-    },
-    "languages": {
-        "Python": {
-            "language_servers": ["pyright", "pylsp", "ruff"],
-            "tab_size": 4,
-            "format_on_save": "on",
-            "formatter": "language_server"
-        },
-        "Go": {
-            "tab_size": 4,
-            "format_on_save": "on",
-            "formatter": "language_server",
-            "language_servers": ["gopls"]
+    "auto_indent": true,
+    "remove_trailing_whitespace_on_save": true,
+    "ensure_final_newline_on_save": true,
+    "format_on_save": "on",
+
+    "confirm_quit": true,
+
+    "git": {
+        "git_gutter": "tracked_files",
+        "inline_blame": {
+            "enabled": true,
+            "delay_ms": 600
         }
     },
-    // LSP (Language Server Protocol) specific settings
-    "lsp": {
-        "pyright": {
-            // These settings are passed to the Pyright language server.
-            // Many of these are identical or similar to Pylance settings.
-            "settings": {
-                // --- Type Checking & Analysis ---
-                "python.analysis.typeCheckingMode": "standard", // "off", "basic", "standard", or "strict"
-                // "basic" is a good default. "strict" is for rigorous type checking.
-                "python.analysis.diagnosticMode": "workspace", // "openFilesOnly" or "workspace"
-                "python.analysis.useLibraryCodeForTypes": true, // Analyze library code for types if stubs are missing.
-                // Set to false for potentially faster analysis if stubs are comprehensive.
-                // --- Import Resolution & Paths ---
-                "python.analysis.autoSearchPaths": true, // Automatically add common source directories like 'src'.
-                "python.analysis.extraPaths": [
-                    // Manually add paths for import resolution.
-                    "src",
-                    "lib"
-                    // "/path/to/another/custom_lib"
-                ],
-                // --- Analysis Scope ---
-                "python.analysis.include": [
-                    // Glob patterns for directories/files to include in analysis.
-                    // Defaults to the workspace root if empty.
-                    // "src_py"
-                ],
-                "python.analysis.exclude": [
-                    // Glob patterns for directories/files to exclude from analysis.
-                    "**/node_modules",
-                    "**/__pycache__",
-                    ".venv",
-                    "*.test.py",
-                    "tests/"
-                ],
-                // --- Diagnostics & Reports (Examples) ---
-                // You can customize the severity of specific diagnostics.
-                // Refer to Pyright/Pylance documentation for available diagnostic rule names.
-                "python.analysis.diagnosticSeverityOverrides": {
-                    "reportMissingImports": "warning", // "error", "warning", "information", "none"
-                    "reportUnusedVariable": "information",
-                    "reportPrivateUsage": "warning",
-                    "reportTypedDictNotRequiredAccess": "none"
-                },
-                "python.analysis.stubPath": "typings", // Path to a directory containing custom type stubs.
-                // --- Inlay Hints (Display depends on Zed's specific support for these LSP settings) ---
-                // These settings control inline hints for variable types, function return types, etc.
-                // Note: Zed might also have its own global or language-specific editor settings for inlay hints.
-                "pyright.inlayHints.variableTypes": true,
-                "pyright.inlayHints.functionReturnTypes": true,
-                "pyright.inlayHints.callArgumentNames": "all", // "off", "partial", "all" (shows names for all arguments)
-                "pyright.inlayHints.parameterTypes": true,
-                // --- Other Pylance/Pyright Features ---
-                "python.analysis.autoImportCompletions": true, // Offer auto-imports in completion suggestions.
-                "python.analysis.importFormat": "absolute", // "absolute" or "relative" for auto-imports.
-                "python.analysis.indexing": true, // Index user files and libraries for faster and more complete IntelliSense.
-                "python.analysis.completeFunctionParens": true // Adds parentheses to function completions.
-            }
-            // "initialization_options": {
-            //   // Some LSPs might take initialization options here. For Pyright,
-            //   // settings are typically passed via workspace/didChangeConfiguration or the "settings" key above.
-            // }
+
+    "file_types": {
+        "Dockerfile": ["Dockerfile*"],
+        "JSON": ["*.json", ".zed/settings.json"],
+        "YAML": ["*.yml", "*.yaml"],
+        "Go": ["*.go"],
+        "Python": ["*.py", "*.pyi"]
+    },
+
+    "languages": {
+        "Python": {
+            "format_on_save": "on",
+            "formatter": "language_server",
+            "tab_size": 4,
+            "hard_tabs": false,
+            "preferred_line_length": 88
         },
+        "Go": {
+            "format_on_save": "on",
+            "formatter": "language_server",
+            "tab_size": 4,
+            "hard_tabs": true,
+            "preferred_line_length": 100
+        },
+        "JSON": {
+            "tab_size": 2,
+            "hard_tabs": false
+        },
+        "YAML": {
+            "tab_size": 2,
+            "hard_tabs": false
+        },
+        "Markdown": {
+            "soft_wrap": "preferred_line_length",
+            "preferred_line_length": 80
+        }
+    },
+
+    "lsp": {
+            "terraform-ls": {
+      "initialization_options": {
+        "experimentalFeatures": {
+          "prefillRequiredFields": true
+        }
+      }
+    },
         "pylsp": {
             "settings": {
-                "plugins": {
-                    "pycodestyle": {
+                "pylsp": {
+                    "plugins": {
+                        "pycodestyle": {
+                            "enabled": true,
+                            "maxLineLength": 88,
+                            "ignore": ["E203", "W503"]
+                        },
+                        "pyflakes": {
+                            "enabled": true
+                        },
+                        "mccabe": {
+                            "enabled": true,
+                            "threshold": 15
+                        },
+                        "autopep8": {
+                            "enabled": false
+                        },
+                        "black": {
+                            "enabled": true,
+                            "line_length": 88,
+                            "skip_string_normalization": false
+                        },
+                        "rope_completion": {
+                            "enabled": true,
+                            "eager": false
+                        },
+                        "code_actions": {
+                            "enabled": true
+                        }
+                    },
+                    "jedi_completion": {
                         "enabled": true,
-                        "ignore": ["E501"]
+                        "include_params": true,
+                        "include_class_objects": true,
+                        "include_function_objects": true,
+                        "fuzzy": true
+                    },
+                    "jedi_hover": {
+                        "enabled": true
+                    },
+                    "jedi_references": {
+                        "enabled": true
+                    },
+                    "jedi_signature_help": {
+                        "enabled": true
+                    },
+                    "jedi_symbols": {
+                        "enabled": true,
+                        "all_scopes": true,
+                        "include_import_symbols": true
+                    },
+                    "jedi_definition": {
+                        "enabled": true,
+                        "follow_imports": true,
+                        "follow_builtin_imports": true
                     }
                 }
             }
+        }
+    },
+
+    "gopls": {
+        "initialization_options": {
+            "usePlaceholders": true,
+            "completeUnimported": true,
+            "deepCompletion": true,
+            "matcher": "fuzzy",
+            "staticcheck": true,
+            "experimentalWorkspaceModule": true
         },
-        "ruff": {
-            // If you've installed the Ruff LSP extension, Zed should pick it up.
-            // Ruff's primary role here would be linting and formatting.
-            // Ensure `ruff` is installed in your Python environment or globally.
-            // Configuration for ruff is typically done via `ruff.toml` or `pyproject.toml` in your project.
-        },
-        "gopls": {
-            // Ensure `gopls` is installed (`go install golang.org/x/tools/gopls@latest`)
-            // and in your PATH.
-            "initialization_options": {
-                // Also configurable under languages.Go.language_server_settings
-                "ui.semanticTokens": true,
-                "staticcheck": true,
+        "settings": {
+            "gopls": {
+                "analyses": {
+                    "unusedparams": true,
+                    "shadow": true,
+                    "fieldalignment": true,
+                    "nilness": true,
+                    "unusedwrite": true,
+                    "useany": true
+                },
                 "hints": {
                     "assignVariableTypes": true,
                     "compositeLiteralFields": true,
@@ -139,8 +166,51 @@
                     "functionTypeParameters": true,
                     "parameterNames": true,
                     "rangeVariableTypes": true
-                }
+                },
+                "formatting": {
+                    "gofumpt": true
+                },
+                "importShortcut": "Both",
+                "linkTarget": "pkg.go.dev",
+                "local": "",
+                "verboseOutput": false
             }
         }
+    },
+
+    "collaboration_panel": {
+        "button": true
+    },
+
+    "outline_panel": {
+        "button": true,
+        "default_width": 240
+    },
+
+    "project_panel": {
+        "button": true,
+        "default_width": 240,
+        "dock": "left",
+        "git_status": true
+    },
+
+    "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": true,
+        "show_parameter_hints": true,
+        "show_other_hints": true
+    },
+
+    "search": {
+        "whole_word": false,
+        "case_sensitive": false,
+        "include_ignored": false,
+        "regex": false
+    },
+
+    "preview_tabs": {
+        "enabled": true,
+        "enable_preview_from_file_finder": true,
+        "enable_preview_from_code_navigation": true
     }
 }

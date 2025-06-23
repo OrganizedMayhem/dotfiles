@@ -293,24 +293,4 @@ return {
 			end, { desc = "List mini.icons categories" })
 		end,
 	},
-
-	-- Optional: Integration with other plugins
-	{
-		"nvim-tree/nvim-tree.lua",
-		optional = true,
-		opts = function(_, opts)
-			-- Use mini.icons instead of nvim-web-devicons
-			opts.renderer = opts.renderer or {}
-			opts.renderer.icons = opts.renderer.icons or {}
-			opts.renderer.icons.web_devicons = {
-				file = {
-					enable = false,
-				},
-				folder = {
-					enable = false,
-				},
-			}
-			return opts
-		end,
-	},
 }

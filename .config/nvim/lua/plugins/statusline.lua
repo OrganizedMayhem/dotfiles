@@ -4,16 +4,11 @@
 return {
 	{
 		"echasnovski/mini.statusline",
-		version = "*", -- Use stable version
-		event = "VeryLazy", -- Load after startup for better performance
+		version = "*",       -- Use stable version
+		event = "VeryLazy",  -- Load after startup for better performance
 		dependencies = {
-			-- Optional dependencies for enhanced functionality
 			"echasnovski/mini.icons", -- For file type icons
-			--"echasnovski/mini.git", -- For git information
 			"echasnovski/mini.diff", -- For diff information
-			-- Alternative fallbacks if you don't use mini.nvim ecosystem:
-			-- 'nvim-tree/nvim-web-devicons', -- Alternative to mini.icons
-			-- 'lewis6991/gitsigns.nvim',     -- Alternative to mini.git/diff
 		},
 		config = function()
 			-- Helper functions for custom statusline sections
@@ -109,7 +104,7 @@ return {
 						local indent_info = M.indent_info()
 
 						return require("mini.statusline").combine_groups({
-							{ hl = mode_hl, strings = { mode } },
+							{ hl = mode_hl,                  strings = { mode } },
 							{
 								hl = "MiniStatuslineDevinfo",
 								strings = {
@@ -120,15 +115,15 @@ return {
 									lsp_progress,
 									dap_status,
 									macro_status,
-									ts_status,
-									spell_status,
+									--ts_status,
+									--spell_status,
 								},
 							},
 							"%<", -- Mark general truncate point
 							{ hl = "MiniStatuslineFilename", strings = { filename } },
 							"%=", -- End left alignment
 							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo, encoding_info, indent_info } },
-							{ hl = mode_hl, strings = { search, location } },
+							{ hl = mode_hl,                  strings = { search, location } },
 						})
 					end,
 
@@ -204,15 +199,6 @@ return {
 					vim.cmd("redrawstatus")
 				end,
 			})
-		end,
-	},
-
-	-- Optional: If you want to use nvim-dap for debugging integration
-	{
-		"mfussenegger/nvim-dap",
-		lazy = true, -- Only load when needed
-		config = function()
-			-- Your DAP configuration here
 		end,
 	},
 }

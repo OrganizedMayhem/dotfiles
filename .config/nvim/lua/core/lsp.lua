@@ -2,6 +2,7 @@ vim.lsp.enable({
 	"gopls",
 	"lua_ls",
 	"pyright",
+	"terraform-ls"
 })
 
 vim.diagnostic.config({
