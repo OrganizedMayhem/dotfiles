@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # List of dependencies for dnf/dnf5 and apt
-yum_dependencies="kubernetes-kubeadm hadolint helm trivy crun crun-wasm ShellCheck ripgrep fzf stow neovim luarocks fd-find python3 python3-pip"
+yum_dependencies="hadolint helm trivy crun crun-wasm ShellCheck ripgrep fzf stow neovim luarocks fd-find python3 python3-pip"
 apt_dependencies="crun shellcheck ripgrep fzf stow neovim luarocks fd python3 python3-pip" # kubeadm hadolint helm trivy - not availble with default repos
 brew_dependencies="shellcheck ripgrep fzf stow neovim luarocks fd"
 # Function to check if a package is installed for dnf/dnf5 (using rpm)

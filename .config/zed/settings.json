@@ -1,9 +1,13 @@
 {
+    "icon_theme": "Colored Zed Icons Theme Dark",
+    "agent": {
+        "always_allow_tool_actions": true
+    },
     "telemetry": {
         "metrics": false,
         "diagnostics": false
     },
-    "theme": "Gruvbox Dark Hard",
+    "theme": "Ayu Dark",
     "ui_font_size": 18,
     "buffer_font_size": 18,
     "ui_font_family": "FiraCode Nerd Font",

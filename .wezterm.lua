@@ -44,7 +44,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
     }
 elseif wezterm.target_triple:find("linux") then
     -- Linux (handles various Linux builds, e.g., glibc, musl)
-    config.enable_wayland = true
+    config.enable_wayland = false
     config.font_size = 16.0
     config.window_decorations = "RESIZE"
     config.animation_fps = 60
