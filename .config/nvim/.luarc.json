@@ -1,0 +1,26 @@
+{
+  "runtime.version": "LuaJIT",
+  "runtime.path": [
+    "lua/?.lua",
+    "lua/?/init.lua"
+  ],
+  "diagnostics.globals": [
+    "vim",
+    "describe",
+    "it",
+    "before_each",
+    "after_each",
+    "pending"
+  ],
+  "diagnostics.disable": [
+    "missing-fields"
+  ],
+  "workspace.library": [
+    "$VIMRUNTIME",
+    "${3rd}/luv/library"
+  ],
+  "workspace.checkThirdParty": false,
+  "hint.enable": true,
+  "telemetry.enable": false,
+  "format.enable": false
+}

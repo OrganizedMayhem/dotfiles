@@ -1,46 +1,34 @@
 return {
 	"obsidian-nvim/obsidian.nvim",
-	dependencies = { "nvim-lua/plenary.nvim", "ibhagwan/fzf-lua" },
-	lazy = true,
-	ft = "markdown",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"folke/snacks.nvim", -- snacks picker
+		"Saghen/blink.cmp", -- if you haven't: "githubuser/blink.cmp"
+	},
+	lazy = false, -- load on startup so commands are always available
 	config = function()
 		require("obsidian").setup({
-			-- A list of workspace names, paths, and configuration overrides.
+			legacy_commands = false, -- use new standardized commands
 			workspaces = {
-				{
-					name = "notes",
-					path = "~/vaults/Personal",
-				},
-				{
-					name = "Work",
-					path = "~/vaults/Work",
-				},
+				{ name = "Personal", path = "~/vaults/Personal" },
+				{ name = "Work", path = "~/vaults/Work" },
 			},
-			log_level = vim.log.levels.INFO,
+
 			daily_notes = {
-				default = {},
-				folder = "dailies/%Y-%m",
+				folder = "Summaries/Dailies/intake",
 				date_format = "%Y-%m-%d",
 				alias_format = "%B %-d, %Y",
 				template = "daily.md",
+				default_tags = { "daily-notes" }, -- new option
+				workdays_only = false, -- new option
 			},
 
 			completion = {
-				nvim_cmp = false,
+				nvim_cmp = false, -- disable nvim-cmp completion
+				blink = true, -- enable blink completion
 				min_chars = 2,
+				create_new = true,
 			},
-
-			note_id_func = function(title)
-				local suffix = ""
-				if title ~= nil then
-					suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-				else
-					for _ = 1, 4 do
-						suffix = suffix .. string.char(math.random(65, 90))
-					end
-				end
-				return tostring(os.time()) .. "-" .. suffix
-			end,
 
 			note_path_func = function(spec)
 				local path = spec.dir / tostring(spec.id)
@@ -61,57 +49,48 @@ return {
 				return string.format("%s-", os.time())
 			end,
 
-			disable_frontmatter = false,
-
-			note_frontmatter_func = function(note)
-				if note.title then
-					note:add_alias(note.title)
-				end
-
-				local out = {
-					id = note.id,
-					aliases = note.aliases,
-					tags = note.tags,
-				}
-
-				if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-					for k, v in pairs(note.metadata) do
-						out[k] = v
-					end
-				end
-				return out
-			end,
-
 			templates = {
 				folder = "templates",
 				date_format = "%Y-%m-%d",
-				time_format = "%H:%M",
+				time_format = "%H:%M:%S",
 				substitutions = {},
 			},
 
 			follow_url_func = function(url)
-				vim.fn.jobstart({ "open", url }) -- Mac OS
-				-- vim.fn.jobstart({"xdg-open", url})  -- linux
+				vim.fn.jobstart({ "open", url }) -- Mac
+				-- vim.fn.jobstart({ "xdg-open", url }) -- Linux
 			end,
 
-			--			use_advanced_uri = true,
+			open = {
+				use_advanced_uri = false,
+				func = vim.ui.open,
+			},
 
 			picker = {
-				name = "fzf-lua",
+				name = "snacks.pick", -- using snacks.nvim picker
 				mappings = {
 					new = "<C-x>",
 					insert_link = "<C-l>",
 				},
-				tag_mappings = name,
-				note_mappings = use_advanced_uri,
+				tag_mappings = {
+					tag_note = "<C-x>",
+					insert_tag = "<C-l>",
+				},
+				note_mappings = {
+					new = "<C-x>",
+					insert_link = "<C-l>",
+				},
 			},
 
-			sort_by = "modified",
-			sort_reversed = true,
-
-			search_max_lines = 1000,
-
 			open_notes_in = "current",
+			frontmatter = {
+				enabled = true,
+			},
+			search = {
+				sort_reversed = true,
+				search_max_lines = 1000,
+				sort_by = "modified",
+			},
 
 			callbacks = {
 				post_setup = function(client) end,
@@ -125,91 +104,24 @@ return {
 				enable = true,
 				update_debounce = 200,
 				max_file_length = 5000,
-				checkboxes = {
-					[" "] = {
-						char = "󰄱",
-						hl_group = "ObsidianTodo",
-					},
-					["x"] = {
-						char = "",
-						hl_group = "ObsidianDone",
-					},
-					[">"] = {
-						char = "",
-						hl_group = "ObsidianRightArrow",
-					},
-					["~"] = {
-						char = "󰰱",
-						hl_group = "ObsidianTilde",
-					},
-					["!"] = {
-						char = "",
-						hl_group = "ObsidianImportant",
-					},
-				},
-				bullets = {
-					char = "•",
-					hl_group = "ObsidianBullet",
-				},
-				external_link_icon = {
-					char = "",
-					hl_group = "ObsidianExtLinkIcon",
-				},
-				reference_text = {
-					hl_group = "ObsidianRefText",
-				},
-				highlight_text = {
-					hl_group = "ObsidianHighlightText",
-				},
-				tags = {
-					hl_group = "ObsidianTag",
-				},
-				block_ids = {
-					hl_group = "ObsidianBlockID",
-				},
+				bullets = { char = "•", hl_group = "ObsidianBullet" },
+				external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+				reference_text = { hl_group = "ObsidianRefText" },
+				highlight_text = { hl_group = "ObsidianHighlightText" },
+				tags = { hl_group = "ObsidianTag" },
+				block_ids = { hl_group = "ObsidianBlockID" },
 				hl_groups = {
-					ObsidianTodo = {
-						bold = true,
-						fg = "#f78c6c",
-					},
-					ObsidianDone = {
-						bold = true,
-						fg = "#89ddff",
-					},
-					ObsidianRightArrow = {
-						bold = true,
-						fg = "#f78c6c",
-					},
-					ObsidianTilde = {
-						bold = true,
-						fg = "#ff5370",
-					},
-					ObsidianImportant = {
-						bold = true,
-						fg = "#d73128",
-					},
-					ObsidianBullet = {
-						bold = true,
-						fg = "#89ddff",
-					},
-					ObsidianRefText = {
-						underline = true,
-						fg = "#c792ea",
-					},
-					ObsidianExtLinkIcon = {
-						fg = "#c792ea",
-					},
-					ObsidianTag = {
-						italic = true,
-						fg = "#89ddff",
-					},
-					ObsidianBlockID = {
-						italic = true,
-						fg = "#89ddff",
-					},
-					ObsidianHighlightText = {
-						bg = "#75662e",
-					},
+					ObsidianTodo = { bold = true, fg = "#f78c6c" },
+					ObsidianDone = { bold = true, fg = "#89ddff" },
+					ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+					ObsidianTilde = { bold = true, fg = "#ff5370" },
+					ObsidianImportant = { bold = true, fg = "#d73128" },
+					ObsidianBullet = { bold = true, fg = "#89ddff" },
+					ObsidianRefText = { underline = true, fg = "#c792ea" },
+					ObsidianExtLinkIcon = { fg = "#c792ea" },
+					ObsidianTag = { italic = true, fg = "#89ddff" },
+					ObsidianBlockID = { italic = true, fg = "#89ddff" },
+					ObsidianHighlightText = { bg = "#75662e" },
 				},
 			},
 
