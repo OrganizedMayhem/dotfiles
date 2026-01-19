@@ -5,13 +5,13 @@ return {
 		"folke/snacks.nvim", -- snacks picker
 		"Saghen/blink.cmp", -- if you haven't: "githubuser/blink.cmp"
 	},
-	lazy = false, -- load on startup so commands are always available
+	lazy = false,      -- load on startup so commands are always available
 	config = function()
 		require("obsidian").setup({
 			legacy_commands = false, -- use new standardized commands
 			workspaces = {
 				{ name = "Personal", path = "~/vaults/Personal" },
-				{ name = "Work", path = "~/vaults/Work" },
+				{ name = "Work",     path = "~/vaults/Work" },
 			},
 
 			daily_notes = {
@@ -55,11 +55,6 @@ return {
 				time_format = "%H:%M:%S",
 				substitutions = {},
 			},
-
-			follow_url_func = function(url)
-				vim.fn.jobstart({ "open", url }) -- Mac
-				-- vim.fn.jobstart({ "xdg-open", url }) -- Linux
-			end,
 
 			open = {
 				use_advanced_uri = false,
@@ -126,7 +121,6 @@ return {
 			},
 
 			attachments = {
-				img_folder = "assets/imgs",
 				img_text_func = function(client, path)
 					path = client:vault_relative_path(path) or path
 					return string.format("![%s](%s)", path.name, path)
