@@ -13,9 +13,8 @@ return {
 				"helm-ls",
 				"jinja-lsp",
 				"lua-language-server",
-				"pyright",
+				"basedpyright",
 				"ruff",
-				"terraform-ls",
 				"tflint",
 				"tofu-ls",
 				-- Linters / Formatters

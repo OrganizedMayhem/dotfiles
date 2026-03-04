@@ -6,8 +6,8 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 		version = "*",
-		config = function()
-			require("blink.cmp").setup({
+		config = function(_, opts)
+			require("blink.cmp").setup(vim.tbl_deep_extend("force", opts or {}, {
 				snippets = { preset = "luasnip" },
 				signature = { enabled = true },
 				appearance = {
@@ -83,7 +83,7 @@ return {
 						auto_show_delay_ms = 500,
 					},
 				},
-			})
+			}))
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 		end,

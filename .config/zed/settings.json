@@ -1,20 +1,22 @@
 {
     "icon_theme": "Colored Zed Icons Theme Dark",
     "agent": {
-        "always_allow_tool_actions": true
+        "default_model": {
+            "provider": "google",
+            "model": "gemini-3.1-pro-preview",
+            "enable_thinking": false,
+        },
     },
     "telemetry": {
         "metrics": false,
-        "diagnostics": false
+        "diagnostics": false,
     },
     "theme": "Ayu Dark",
     "ui_font_size": 18,
     "buffer_font_size": 18,
     "ui_font_family": "FiraCode Nerd Font",
-
     "vim_mode": false,
     "cursor_blink": true,
-    "show_line_numbers": true,
     "show_whitespaces": "selection",
     "wrap_guides": [80, 120],
     "preferred_line_length": 88,
@@ -24,197 +26,143 @@
     "remove_trailing_whitespace_on_save": true,
     "ensure_final_newline_on_save": true,
     "format_on_save": "on",
-
     "confirm_quit": true,
-
     "git": {
         "git_gutter": "tracked_files",
         "inline_blame": {
             "enabled": true,
-            "delay_ms": 600
-        }
+            "delay_ms": 600,
+        },
     },
-
     "file_types": {
         "Dockerfile": ["Dockerfile*"],
         "JSON": ["*.json", ".zed/settings.json"],
         "YAML": ["*.yml", "*.yaml"],
         "Go": ["*.go"],
-        "Python": ["*.py", "*.pyi"]
+        "Python": ["*.py", "*.pyi"],
     },
-
     "languages": {
         "Python": {
             "format_on_save": "on",
             "formatter": "language_server",
             "tab_size": 4,
             "hard_tabs": false,
-            "preferred_line_length": 88
+            "preferred_line_length": 88,
+            "language_servers": ["basedpyright"],
         },
         "Go": {
             "format_on_save": "on",
             "formatter": "language_server",
             "tab_size": 4,
             "hard_tabs": true,
-            "preferred_line_length": 100
+            "preferred_line_length": 100,
         },
         "JSON": {
             "tab_size": 2,
-            "hard_tabs": false
+            "hard_tabs": false,
         },
         "YAML": {
             "tab_size": 2,
-            "hard_tabs": false
+            "hard_tabs": false,
         },
         "Markdown": {
             "soft_wrap": "preferred_line_length",
-            "preferred_line_length": 80
-        }
-    },
-
-    "lsp": {
-            "terraform-ls": {
-      "initialization_options": {
-        "experimentalFeatures": {
-          "prefillRequiredFields": true
-        }
-      }
-    },
-        "pylsp": {
-            "settings": {
-                "pylsp": {
-                    "plugins": {
-                        "pycodestyle": {
-                            "enabled": true,
-                            "maxLineLength": 88,
-                            "ignore": ["E203", "W503"]
-                        },
-                        "pyflakes": {
-                            "enabled": true
-                        },
-                        "mccabe": {
-                            "enabled": true,
-                            "threshold": 15
-                        },
-                        "autopep8": {
-                            "enabled": false
-                        },
-                        "black": {
-                            "enabled": true,
-                            "line_length": 88,
-                            "skip_string_normalization": false
-                        },
-                        "rope_completion": {
-                            "enabled": true,
-                            "eager": false
-                        },
-                        "code_actions": {
-                            "enabled": true
-                        }
-                    },
-                    "jedi_completion": {
-                        "enabled": true,
-                        "include_params": true,
-                        "include_class_objects": true,
-                        "include_function_objects": true,
-                        "fuzzy": true
-                    },
-                    "jedi_hover": {
-                        "enabled": true
-                    },
-                    "jedi_references": {
-                        "enabled": true
-                    },
-                    "jedi_signature_help": {
-                        "enabled": true
-                    },
-                    "jedi_symbols": {
-                        "enabled": true,
-                        "all_scopes": true,
-                        "include_import_symbols": true
-                    },
-                    "jedi_definition": {
-                        "enabled": true,
-                        "follow_imports": true,
-                        "follow_builtin_imports": true
-                    }
-                }
-            }
-        }
-    },
-
-    "gopls": {
-        "initialization_options": {
-            "usePlaceholders": true,
-            "completeUnimported": true,
-            "deepCompletion": true,
-            "matcher": "fuzzy",
-            "staticcheck": true,
-            "experimentalWorkspaceModule": true
+            "preferred_line_length": 80,
         },
-        "settings": {
-            "gopls": {
-                "analyses": {
-                    "unusedparams": true,
-                    "shadow": true,
-                    "fieldalignment": true,
-                    "nilness": true,
-                    "unusedwrite": true,
-                    "useany": true
-                },
-                "hints": {
-                    "assignVariableTypes": true,
-                    "compositeLiteralFields": true,
-                    "compositeLiteralTypes": true,
-                    "constantValues": true,
-                    "functionTypeParameters": true,
-                    "parameterNames": true,
-                    "rangeVariableTypes": true
-                },
-                "formatting": {
-                    "gofumpt": true
-                },
-                "importShortcut": "Both",
-                "linkTarget": "pkg.go.dev",
-                "local": "",
-                "verboseOutput": false
-            }
-        }
     },
-
+    "lsp": {
+        "terraform-ls": {
+            "initialization_options": {
+                "experimentalFeatures": {
+                    "prefillRequiredFields": true,
+                },
+            },
+        },
+        "basedpyright": {
+            "settings": {
+                "basedpyright": {
+                    "analysis": {
+                        "typeCheckingMode": "standard",
+                        "diagnosticMode": "workspace",
+                        "autoSearchPaths": true,
+                        "useLibraryCodeForTypes": true,
+                        "autoImportCompletions": true,
+                        "inlayHints": {
+                            "variableTypes": true,
+                            "functionReturnTypes": true,
+                            "callArgumentNames": true,
+                            "pytestParameters": true,
+                        },
+                    },
+                },
+            },
+        },
+        "gopls": {
+            "initialization_options": {
+                "usePlaceholders": true,
+                "completeUnimported": true,
+                "deepCompletion": true,
+                "matcher": "fuzzy",
+                "staticcheck": true,
+                "experimentalWorkspaceModule": true,
+            },
+            "settings": {
+                "gopls": {
+                    "analyses": {
+                        "unusedparams": true,
+                        "shadow": true,
+                        "fieldalignment": true,
+                        "nilness": true,
+                        "unusedwrite": true,
+                        "useany": true,
+                    },
+                    "hints": {
+                        "assignVariableTypes": true,
+                        "compositeLiteralFields": true,
+                        "compositeLiteralTypes": true,
+                        "constantValues": true,
+                        "functionTypeParameters": true,
+                        "parameterNames": true,
+                        "rangeVariableTypes": true,
+                    },
+                    "formatting": {
+                        "gofumpt": true,
+                    },
+                    "importShortcut": "Both",
+                    "linkTarget": "pkg.go.dev",
+                    "local": "",
+                    "verboseOutput": false,
+                },
+            },
+        },
+    },
     "collaboration_panel": {
-        "button": true
+        "button": true,
     },
-
     "outline_panel": {
         "button": true,
-        "default_width": 240
+        "default_width": 240,
     },
-
     "project_panel": {
         "button": true,
         "default_width": 240,
         "dock": "left",
-        "git_status": true
+        "git_status": true,
     },
-
     "inlay_hints": {
         "enabled": true,
         "show_type_hints": true,
         "show_parameter_hints": true,
-        "show_other_hints": true
+        "show_other_hints": true,
     },
-
     "search": {
         "whole_word": false,
         "case_sensitive": false,
         "include_ignored": false,
-        "regex": false
+        "regex": false,
     },
-
     "preview_tabs": {
         "enabled": true,
         "enable_preview_from_file_finder": true,
-        "enable_preview_from_code_navigation": true
-    }
+    },
 }

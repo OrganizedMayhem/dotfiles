@@ -6,11 +6,11 @@ return {{
             preset = "default",
             ["<C-space>"] = {"show", "show_documentation", "hide_documentation"},
             ["<C-e>"] = {"hide"},
-            ["<CR>"] = {"accept", "fallback"},
+            ["<CR>"] = {"fallback"},
             ["<Tab>"] = {function(cmp)
                 local luasnip = require("luasnip")
                 if cmp.is_visible() then
-                    return cmp.select_next()
+                    return cmp.select_and_accept()
                 elseif luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 else
@@ -101,11 +101,11 @@ return {{
             preset = "default",
             ["<C-space>"] = {"show", "show_documentation", "hide_documentation"},
             ["<C-e>"] = {"hide"},
-            ["<CR>"] = {"accept", "fallback"},
+            ["<CR>"] = {"fallback"},
             ["<Tab>"] = {function(cmp)
                 local luasnip = require("luasnip")
                 if cmp.is_visible() then
-                    return cmp.select_next()
+                    return cmp.select_and_accept()
                 elseif luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 else
