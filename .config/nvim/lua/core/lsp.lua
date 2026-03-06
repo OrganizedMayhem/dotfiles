@@ -8,7 +8,7 @@ local function load_server_config(server_name)
 end
 
 -- Configure and enable LSP servers with custom settings
-local servers = { "gopls", "lua_ls", "pyright", "terraform-ls" }
+local servers = { "gopls", "lua_ls", "basedpyright", "terraform-ls" }
 
 for _, server_name in ipairs(servers) do
   local config = load_server_config(server_name)
