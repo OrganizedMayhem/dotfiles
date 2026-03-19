@@ -13,6 +13,7 @@ return {
 		config = function()
 			require("nvim-treesitter.config").setup({
 				-- Highlight is essential for treesitter to function visually
+				install_dir = "",
 				highlight = {
 					enable = true,
 					-- Disable these if you encounter performance issues or prefer other highlighting
@@ -118,4 +119,3 @@ return {
 		-- branch = "main",
 	},
 }
-

@@ -5,13 +5,13 @@ return {
 		"folke/snacks.nvim", -- snacks picker
 		"Saghen/blink.cmp", -- if you haven't: "githubuser/blink.cmp"
 	},
-	lazy = false,      -- load on startup so commands are always available
+	lazy = false, -- load on startup so commands are always available
 	config = function()
 		require("obsidian").setup({
 			legacy_commands = false, -- use new standardized commands
 			workspaces = {
 				{ name = "Personal", path = "~/vaults/Personal" },
-				{ name = "Work",     path = "~/vaults/Work" },
+				{ name = "Work", path = "~/vaults/Work" },
 			},
 
 			daily_notes = {
@@ -29,21 +29,14 @@ return {
 				min_chars = 2,
 				create_new = true,
 			},
-
+			link = {
+				style = "wiki",
+				format = "shortest",
+			},
 			note_path_func = function(spec)
 				local path = spec.dir / tostring(spec.id)
 				return path:with_suffix(".md")
 			end,
-
-			wiki_link_func = function(opts)
-				return require("obsidian.util").wiki_link_id_prefix(opts)
-			end,
-
-			markdown_link_func = function(opts)
-				return require("obsidian.util").markdown_link(opts)
-			end,
-
-			preferred_link_style = "wiki",
 
 			image_name_func = function()
 				return string.format("%s-", os.time())
