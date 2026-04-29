@@ -1,6 +1,23 @@
 {
+    "git_panel": {
+        "dock": "left"
+    },
+    "ssh_connections": [
+        {
+            "host": "utility",
+            "args": [],
+            "projects": [
+                {
+                    "paths": [
+                        "/opt/n8n"
+                    ]
+                }
+            ]
+        }
+    ],
     "icon_theme": "Colored Zed Icons Theme Dark",
     "agent": {
+        "dock": "right",
         "default_model": {
             "provider": "google",
             "model": "gemini-3.1-pro-preview",
@@ -137,9 +154,11 @@
         },
     },
     "collaboration_panel": {
+        "dock": "left",
         "button": true,
     },
     "outline_panel": {
+        "dock": "left",
         "button": true,
         "default_width": 240,
     },

@@ -95,3 +95,6 @@ no_comments() {
 #[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
  eval "$(starship init zsh)"
 
+
+# Added by LM Studio CLI tool (lms)
+export PATH="$PATH:/home/sevans/.lmstudio/bin"

@@ -12,22 +12,17 @@ return {
 				"helm-ls",
 				"jinja-lsp",
 				"lua-language-server",
-				"basedpyright",
 				"ruff",
 				"taplo", -- TOML LSP (terraform vars, configs)
 				"tofu-ls",
-				"yamlls", -- YAML LSP (k8s manifests, CI/CD)
 
 				-- ── Linters ─────────────────────────────────────────────────────
 				"ansible-lint",
 				"golangci-lint", -- go: meta-linter (replaces individual go linters)
 				"hadolint", -- Dockerfile linter
-				"kube-linter", -- k8s manifest linter
 				"markdownlint", -- useful for README/runbook editing
-				"mypy", -- python: static type checking
 				"shellcheck",
 				"shellharden",
-				"systemdlint",
 				"trivy", -- security: vuln scanning (images, IaC, fs)
 				"tflint", -- terraform: linter with provider-aware rules
 
@@ -36,11 +31,9 @@ return {
 				"goimports", -- go: auto-manages imports
 				"isort", -- python: import sorting (pairs with ruff)
 				"shfmt",
-				"yamlfmt",
 
 				-- ── Security / Audit ────────────────────────────────────────────
 				"checkov", -- IaC security scanner (tf, k8s, helm, docker)
-				"terraform-ls", -- terraform: LSP (complements tofu-ls)
 			},
 
 			-- Checks and installs on every startup. Combined with debounce_hours
@@ -51,7 +44,7 @@ return {
 			debounce_hours = 5,
 
 			integrations = {
-				["mason-lspconfig"] = false, -- managed separately via lspconfig config
+				["mason-lspconfig"] = true, -- managed separately via lspconfig config
 				["mason-nvim-dap"] = false, -- set to true if you add nvim-dap
 			},
 		},
