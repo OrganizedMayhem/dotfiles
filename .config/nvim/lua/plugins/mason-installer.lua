@@ -31,9 +31,6 @@ return {
 				"goimports", -- go: auto-manages imports
 				"isort", -- python: import sorting (pairs with ruff)
 				"shfmt",
-
-				-- ── Security / Audit ────────────────────────────────────────────
-				"checkov", -- IaC security scanner (tf, k8s, helm, docker)
 			},
 
 			-- Checks and installs on every startup. Combined with debounce_hours

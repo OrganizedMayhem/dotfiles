@@ -11,7 +11,7 @@ return {
 			legacy_commands = false, -- use new standardized commands
 			workspaces = {
 				{ name = "Personal", path = "~/vaults/Personal" },
-				{ name = "Work", path = "~/vaults/Work" },
+				{ name = "Work", path = "~/vaults/Travel" },
 			},
 
 			daily_notes = {
