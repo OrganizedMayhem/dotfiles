@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.510.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.511.1 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
@@ -22,7 +22,7 @@ packages:
 - name: terramate-io/terramate@v0.17.0
 - name: astral-sh/ty@0.0.35
 # Other Packages
-- name: anthropics/claude-code@v2.1.138
+- name: anthropics/claude-code@v2.1.139
 - name: wagoodman/dive@v0.13.1
 - name: slimtoolkit/slim@1.40.11
 - name: batchcorp/plumber@v2.9.0

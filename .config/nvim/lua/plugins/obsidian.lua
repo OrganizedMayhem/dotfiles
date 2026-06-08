@@ -24,8 +24,6 @@ return {
 			},
 
 			completion = {
-				nvim_cmp = false, -- disable nvim-cmp completion
-				blink = true, -- enable blink completion
 				min_chars = 2,
 				create_new = true,
 			},
@@ -120,5 +118,102 @@ return {
 				end,
 			},
 		})
+
+		local function prompt_chain(questions, results, idx, on_done)
+			if idx > #questions then
+				on_done(results)
+				return
+			end
+			local q = questions[idx]
+			local next_step = function(value)
+				if value == nil or value == "" then
+					vim.notify("Options trade: cancelled", vim.log.levels.INFO)
+					return
+				end
+				results[q.key] = value
+				prompt_chain(questions, results, idx + 1, on_done)
+			end
+			if q.type == "select" then
+				vim.ui.select(q.choices, { prompt = q.prompt }, next_step)
+			else
+				vim.ui.input({ prompt = q.prompt, default = q.default }, next_step)
+			end
+		end
+
+		vim.api.nvim_create_user_command("ObsidianOptionsTrade", function()
+			local vault = vim.fn.expand("~/vaults/Personal")
+			local template_path = vault .. "/templates/options-trade.md"
+			local today = os.date("%Y-%m-%d")
+			local year = os.date("%Y")
+
+			local questions = {
+				{ key = "TICKER", prompt = "Ticker: ", type = "input" },
+				{ key = "STRATEGY", prompt = "Strategy", type = "select", choices = { "Call", "Put" } },
+				{ key = "BIAS", prompt = "Directional bias", type = "select",
+					choices = { "Bullish", "Bearish", "Neutral" } },
+				{ key = "TIMEFRAME", prompt = "Timeframe", type = "select",
+					choices = { "Intraday", "Swing", "Longer-term" } },
+				{ key = "STRIKE", prompt = "Strike(s): ", type = "input" },
+				{ key = "EXPIRATION", prompt = "Expiration (YYYY-MM-DD): ", type = "input" },
+				{ key = "PREMIUM", prompt = "Premium per contract ($): ", type = "input" },
+				{ key = "CONTRACTS", prompt = "Contracts: ", type = "input" },
+				{ key = "UNDERLYING", prompt = "Underlying price at entry: ", type = "input" },
+			}
+
+			prompt_chain(questions, {}, 1, function(answers)
+				answers.DATE = today
+				answers.TICKER = answers.TICKER:upper()
+
+				local premium = tonumber(answers.PREMIUM)
+				local contracts = tonumber(answers.CONTRACTS)
+				if premium and contracts then
+					answers.TOTAL_COST = string.format("%.2f", premium * contracts * 100)
+				else
+					answers.TOTAL_COST = ""
+				end
+
+				local exp_ok, exp_time = pcall(function()
+					local y, m, d = answers.EXPIRATION:match("(%d+)-(%d+)-(%d+)")
+					return os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d) })
+				end)
+				if exp_ok and exp_time then
+					answers.DTE = tostring(math.floor((exp_time - os.time()) / 86400))
+				else
+					answers.DTE = ""
+				end
+
+				local f = io.open(template_path, "r")
+				if not f then
+					vim.notify("Cannot read template: " .. template_path, vim.log.levels.ERROR)
+					return
+				end
+				local content = f:read("*a")
+				f:close()
+
+				content = content:gsub("<<([%w_]+)>>", function(key)
+					return answers[key] or ("<<" .. key .. ">>")
+				end)
+
+				local dir = string.format("%s/Trading/%s", vault, year)
+				vim.fn.mkdir(dir, "p")
+				local out_path = string.format("%s/%s-%s.md", dir, answers.TICKER, today)
+
+				if vim.fn.filereadable(out_path) == 1 then
+					vim.notify("Note already exists: " .. out_path, vim.log.levels.WARN)
+					vim.cmd("edit " .. vim.fn.fnameescape(out_path))
+					return
+				end
+
+				local out = io.open(out_path, "w")
+				if not out then
+					vim.notify("Cannot write: " .. out_path, vim.log.levels.ERROR)
+					return
+				end
+				out:write(content)
+				out:close()
+
+				vim.cmd("edit " .. vim.fn.fnameescape(out_path))
+			end)
+		end, { desc = "Create a new options-trade note via prompts" })
 	end,
 }

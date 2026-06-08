@@ -34,7 +34,7 @@ else
     sudo chown -R $(whoami) /opt/aquaproj-aqua
     export AQUA_ROOT_DIR="/opt/aquaproj-aqua"
 fi
-export PATH="${AQUA_ROOT_DIR}/bin:$PATH"
+export PATH="${AQUA_ROOT_DIR}/bin:/opt/go_modules/bin:$PATH"
 
 # Load Cargo environment if exists
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
@@ -92,9 +92,10 @@ no_comments() {
 
 
 # Initialize Starship prompt
-#[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
  eval "$(starship init zsh)"
-
+[[ -x "$(command -v wd-go)" ]] && eval "$(wd-go init zsh)"
+ eval "$(wd-go init zsh)"
 
 # Added by LM Studio CLI tool (lms)
 export PATH="$PATH:/home/sevans/.lmstudio/bin"
