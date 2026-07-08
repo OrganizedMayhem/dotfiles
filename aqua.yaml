@@ -8,31 +8,29 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.511.1 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.533.1 # renovate: depName=aquaproj/aqua-registry
 packages:
 # Security Tools
 #- name: azure/azure-workload-identity@v1.1.0
 # Kubernetes
 - name: aporia-ai/kubesurvival@v1.0.1
-- name: Azure/kubelogin@v0.2.17
+- name: Azure/kubelogin@v0.2.19
 - name: Azure/aks-engine@v0.79.0
-- name: derailed/k9s@v0.50.18
+- name: derailed/k9s@v0.51.0
 - name: kubecost/kubectl-cost@v0.6.6
 # IaC/LSP
-- name: terramate-io/terramate@v0.17.0
-- name: astral-sh/ty@0.0.35
+- name: terramate-io/terramate@v0.17.1
 # Other Packages
-- name: anthropics/claude-code@v2.1.139
+- name: anthropics/claude-code@v2.1.204
 - name: wagoodman/dive@v0.13.1
 - name: slimtoolkit/slim@1.40.11
 - name: batchcorp/plumber@v2.9.0
-- name: jesseduffield/lazygit@v0.61.1
+- name: jesseduffield/lazygit@v0.63.0
 - name: kubernetes-sigs/krew@v0.5.0
 - name: cbroglie/mustache@v1.4.0
 - name: GoTestTools/gotestfmt@v2.5.0
 - name: Melkeydev/go-blueprint@v0.10.11
-- name: google/go-containerregistry@v0.21.5
-- name: golang.org/x/tools/gopls@v0.21.1
+- name: google/go-containerregistry@v0.21.7
 # fpm fubectl jf jj kl-lint kubelift rg task tea watchman watchmanctl
 - name: bonnefoa/kubectl-fzf@v3.0.3
-- name: opentofu/tofu-ls@v0.4.2
+- name: opentofu/tofu-ls@v0.5.3
