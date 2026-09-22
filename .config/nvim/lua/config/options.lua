@@ -1,35 +1,44 @@
 vim.g.have_nerd_font = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.opt.autoindent = true -- Keep identation from previous line
-vim.opt.breakindent = true
-vim.opt.conceallevel = 2
-vim.opt.cursorline = true
-vim.opt.expandtab = true -- Convert tabs to spaces
-vim.opt.fileencoding = "utf-8"
-vim.opt.fileformat = unix
-vim.opt.ignorecase = true
-vim.opt.inccommand = "split"
+vim.o.autoindent = true -- Keep identation from previous line
+vim.o.breakindent = true
+vim.o.conceallevel = 2
+vim.o.cursorline = true
+vim.o.expandtab = true -- Convert tabs to spaces
+vim.o.ignorecase = true
+vim.o.inccommand = "split"
 vim.opt.listchars = {
 	tab = "» ",
 	trail = "·",
 	nbsp = "␣",
 }
-vim.opt.list = true
-vim.opt.mouse = "a"
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 10
-vim.opt.shiftwidth = 4
-vim.opt.showmode = false
-vim.opt.signcolumn = "yes"
-vim.opt.smartcase = true
-vim.opt.smartindent = true
-vim.opt.smarttab = true
-vim.opt.softtabstop = 4
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.tabstop = 4
-vim.opt.timeoutlen = 300
-vim.opt.undofile = true
-vim.opt.updatetime = 250
+vim.o.list = true
+vim.o.mouse = "a"
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 10
+vim.o.shiftwidth = 4
+vim.o.showmode = false
+vim.o.signcolumn = "yes"
+vim.o.smartcase = true
+vim.o.smartindent = true
+vim.o.softtabstop = 4
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.tabstop = 4
+vim.o.timeoutlen = 300
+vim.o.undofile = true
+vim.o.updatetime = 250
+
+-- 0.11+: default border for every floating window (hover, signature, diagnostics, plugins)
+vim.o.winborder = "rounded"
+-- 0.12+: border for the built-in popup menu
+vim.o.pumborder = "rounded"
+
+-- Folding: treesitter by default, upgraded to LSP folding on attach (see autocmds.lua).
+-- Start with everything open so folds never surprise you.
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = "" -- 0.10+: keep syntax highlighting on the fold line
+vim.o.foldlevelstart = 99

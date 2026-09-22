@@ -40,7 +40,6 @@ return {
 			{ "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 			{ "<leader>ff",      function() Snacks.picker.files() end,                                   desc = "Find Files" },
 			{ "<leader>fg",      function() Snacks.picker.git_files() end,                               desc = "Find Git Files" },
-			{ "<leader>fp",      function() Snacks.picker.projects() end,                                desc = "Projects" },
 			{ "<leader>fr",      function() Snacks.picker.recent() end,                                  desc = "Recent" },
 			-- git
 			{ "<leader>gb",      function() Snacks.picker.git_branches() end,                            desc = "Git Branches" },
@@ -59,7 +58,6 @@ return {
 			{ '<leader>s"',      function() Snacks.picker.registers() end,                               desc = "Registers" },
 			{ '<leader>s/',      function() Snacks.picker.search_history() end,                          desc = "Search History" },
 			{ "<leader>sa",      function() Snacks.picker.autocmds() end,                                desc = "Autocmds" },
-			{ "<leader>sb",      function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
 			{ "<leader>sc",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
 			{ "<leader>sC",      function() Snacks.picker.commands() end,                                desc = "Commands" },
 			{ "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
@@ -79,7 +77,6 @@ return {
 			{ "<leader>uC",      function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
 			-- LSP
 			{ "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "Goto Definition" },
-			{ "gD",              function() Snacks.picker.lsp_declarations() end,                        desc = "Goto Declaration" },
 			{ "gr",              function() Snacks.picker.lsp_references() end,                          nowait = true,                     desc = "References" },
 			{ "gI",              function() Snacks.picker.lsp_implementations() end,                     desc = "Goto Implementation" },
 			{ "gy",              function() Snacks.picker.lsp_type_definitions() end,                    desc = "Goto T[y]pe Definition" },
@@ -89,7 +86,6 @@ return {
 			{ "<leader>Z",       function() Snacks.zen.zoom() end,                                       desc = "Toggle Zoom" },
 			{ "<leader>.",       function() Snacks.scratch() end,                                        desc = "Toggle Scratch Buffer" },
 			{ "<leader>S",       function() Snacks.scratch.select() end,                                 desc = "Select Scratch Buffer" },
-			{ "<leader>n",       function() Snacks.notifier.show_history() end,                          desc = "Notification History" },
 			{ "<leader>bd",      function() Snacks.bufdelete() end,                                      desc = "Delete Buffer" },
 			{ "<leader>cR",      function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
 			{ "<leader>gB",      function() Snacks.gitbrowse() end,                                      desc = "Git Browse",               mode = { "n", "v" } },
@@ -123,9 +119,11 @@ return {
 				pattern = "VeryLazy",
 				callback = function()
 					-- Setup some globals for debugging (lazy-loaded)
+					---@diagnostic disable-next-line: duplicate-set-field
 					_G.dd = function(...)
 						Snacks.debug.inspect(...)
 					end
+					---@diagnostic disable-next-line: duplicate-set-field
 					_G.bt = function()
 						Snacks.debug.backtrace()
 					end

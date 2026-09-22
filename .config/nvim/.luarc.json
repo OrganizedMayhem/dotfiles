@@ -6,6 +6,7 @@
   ],
   "diagnostics.globals": [
     "vim",
+    "Snacks",
     "describe",
     "it",
     "before_each",
@@ -16,8 +17,9 @@
     "missing-fields"
   ],
   "workspace.library": [
-    "$VIMRUNTIME",
-    "${3rd}/luv/library"
+    "/usr/share/nvim/runtime",
+    "${3rd}/luv/library",
+    "$HOME/.local/share/nvim/lazy/snacks.nvim"
   ],
   "workspace.checkThirdParty": false,
   "hint.enable": true,

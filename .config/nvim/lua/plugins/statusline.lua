@@ -71,8 +71,6 @@ return {
 				return string.format(" %s%d", icon, size)
 			end
 
-			-- Custom LSP progress (more detailed than default)
-
 			require("mini.statusline").setup({
 				content = {
 					active = function()
@@ -112,7 +110,6 @@ return {
 									diff,
 									diagnostics,
 									lsp,
-									lsp_progress,
 									dap_status,
 									macro_status,
 									--ts_status,

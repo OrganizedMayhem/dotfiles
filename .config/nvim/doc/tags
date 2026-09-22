@@ -1,0 +1,12 @@
+keymaps.txt	keymaps.txt	/*keymaps.txt*
+my-keymaps	keymaps.txt	/*my-keymaps*
+my-keymaps-completion	keymaps.txt	/*my-keymaps-completion*
+my-keymaps-find	keymaps.txt	/*my-keymaps-find*
+my-keymaps-git	keymaps.txt	/*my-keymaps-git*
+my-keymaps-lsp	keymaps.txt	/*my-keymaps-lsp*
+my-keymaps-misc	keymaps.txt	/*my-keymaps-misc*
+my-keymaps-obsidian	keymaps.txt	/*my-keymaps-obsidian*
+my-keymaps-oil	keymaps.txt	/*my-keymaps-oil*
+my-keymaps-search	keymaps.txt	/*my-keymaps-search*
+my-keymaps-textobjects	keymaps.txt	/*my-keymaps-textobjects*
+my-keymaps-toggles	keymaps.txt	/*my-keymaps-toggles*

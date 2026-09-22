@@ -1,121 +1,115 @@
--- ~/.config/nvim/lua/plugins/treesitter.lua (or similar)
+-- nvim-treesitter `main` branch: it only installs parsers/queries.
+-- Highlighting, folding and indent are wired up by hand below using Neovim's built-in APIs.
+local parsers = {
+	"bash",
+	"diff",
+	"dockerfile",
+	"go",
+	"gomod",
+	"gosum",
+	"gowork",
+	"hcl",
+	"helm",
+	"jinja",
+	"json",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"query",
+	"regex",
+	"terraform",
+	"toml",
+	"vim",
+	"vimdoc",
+	"yaml",
+}
 
 return {
-	-- Nvim-treesitter itself
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
-		build = ":TSUpdate", -- Ensure parsers are updated on install/update
-		event = { "BufReadPre", "BufNewFile" },
-		-- Make sure you're using the 'main' branch for nvim-treesitter
-		-- If your plugin manager doesn't default to main, specify it:
-		-- branch = "main",
+		lazy = false, -- main branch does not support lazy-loading
+		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.config").setup({
-				-- Highlight is essential for treesitter to function visually
-				install_dir = "",
-				highlight = {
-					enable = true,
-					-- Disable these if you encounter performance issues or prefer other highlighting
-					-- disable = { "c", "cpp" }, -- Example: disable highlight for C and C++
-					-- You can also specify certain contexts where highlight should be disabled
-					-- scm_context = false, -- Disable highlight for SCM (source control management) context
-				},
-				-- Indent uses treesitter for smart indentation
-				indent = {
-					enable = true,
-				},
-				-- Enable textobjects module here
-				textobjects = {
-					select = {
-						enable = true,
-						-- Automatically jump forward to textobj, similar to targets.vim lookahead
-						lookahead = true,
-						keymaps = {
-							-- You can use the capture groups defined in textobjects.scm
-							-- For example, to select a function:
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							-- To select a class:
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-							-- Other useful text objects:
-							["aa"] = "@parameter.outer", -- function arguments/parameters
-							["ia"] = "@parameter.inner",
-							["al"] = "@loop.outer", -- loop block
-							["il"] = "@loop.inner",
-							["ab"] = "@block.outer", -- generic block
-							["ib"] = "@block.inner",
-							["ap"] = "@call.outer", -- function call
-							["ip"] = "@call.inner",
-							["as"] = "@statement.outer", -- statement
-							["is"] = "@statement.inner",
-							["ad"] = "@conditional.outer", -- conditional (if/else)
-							["id"] = "@conditional.inner",
-							["ae"] = "@comment.outer", -- comments
-							["ie"] = "@comment.inner",
-							-- You can define more custom keymaps based on the available queries
-						},
-						-- You can also specify selection modes (e.g., 'v' for charwise, 'V' for linewise)
-						-- This is useful for making text objects act like visual line selections
-						selection_modes = {
-							["@parameter.outer"] = "v",
-							["@function.outer"] = "V",
-							["@class.outer"] = "V",
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true, -- whether to set jumps in the jumplist
-						goto_next_start = {
-							["]m"] = "@function.outer",
-							["]]"] = "@class.outer",
-						},
-						goto_next_end = {
-							["]M"] = "@function.outer",
-							["']["] = "@class.outer", -- Example: using '][ for next class end
-						},
-						goto_previous_start = {
-							["[m"] = "@function.outer",
-							["[["] = "@class.outer",
-						},
-						goto_previous_end = {
-							["[M"] = "@function.outer",
-							["[']"] = "@class.outer", -- Example: using '['] for previous class end
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>a"] = "@parameter.outer",
-							["<leader>s"] = "@call.outer",
-						},
-						swap_previous = {
-							["<leader>A"] = "@parameter.outer",
-							["<leader>S"] = "@call.outer",
-						},
-					},
-					-- lsp_interop: allows textobjects to peek at LSP definitions
-					lsp_interop = {
-						enable = true,
-						border = "rounded",
-						floating_preview_opts = {},
-						peek_definition_code = {
-							["<leader>lo"] = { query = "@class.outer", desc = "Peek class" },
-							["<leader>lp"] = { query = "@function.outer", desc = "Peek function" },
-						},
-					},
-				},
+			local ts = require("nvim-treesitter")
+			ts.install(parsers) -- async, no-op for parsers already installed
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
+				callback = function(event)
+					if not pcall(vim.treesitter.start, event.buf) then
+						return -- no parser for this filetype
+					end
+					vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
 			})
 		end,
 	},
-	-- Nvim-treesitter-textobjects plugin
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
-		-- Important: ensure it loads after nvim-treesitter
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		-- Make sure you're also on the 'main' branch for textobjects
-		-- branch = "main",
+		event = { "BufReadPost", "BufNewFile" },
+		config = function()
+			require("nvim-treesitter-textobjects").setup({
+				select = {
+					-- Automatically jump forward to textobj, similar to targets.vim lookahead
+					lookahead = true,
+					selection_modes = {
+						["@parameter.outer"] = "v",
+						["@function.outer"] = "V",
+						["@class.outer"] = "V",
+					},
+				},
+				move = {
+					set_jumps = true, -- whether to set jumps in the jumplist
+				},
+			})
+
+			local select = require("nvim-treesitter-textobjects.select")
+			local move = require("nvim-treesitter-textobjects.move")
+			local swap = require("nvim-treesitter-textobjects.swap")
+
+			-- Built-in ap/ip, as/is and ab/ib are left alone.
+			local objects = {
+				f = { "@function", "function" },
+				c = { "@class", "class" },
+				a = { "@parameter", "parameter" },
+				l = { "@loop", "loop" },
+				d = { "@conditional", "conditional" },
+				e = { "@comment", "comment" },
+			}
+			for key, obj in pairs(objects) do
+				for _, kind in ipairs({ "outer", "inner" }) do
+					local lhs = (kind == "outer" and "a" or "i") .. key
+					vim.keymap.set({ "x", "o" }, lhs, function()
+						select.select_textobject(obj[1] .. "." .. kind, "textobjects")
+					end, { desc = kind .. " " .. obj[2] })
+				end
+			end
+
+			-- ]] / [[ are used by snacks.words for reference jumping.
+			local nxo = { "n", "x", "o" }
+			vim.keymap.set(nxo, "]m", function()
+				move.goto_next_start("@function.outer", "textobjects")
+			end, { desc = "Next function start" })
+			vim.keymap.set(nxo, "]M", function()
+				move.goto_next_end("@function.outer", "textobjects")
+			end, { desc = "Next function end" })
+			vim.keymap.set(nxo, "[m", function()
+				move.goto_previous_start("@function.outer", "textobjects")
+			end, { desc = "Prev function start" })
+			vim.keymap.set(nxo, "[M", function()
+				move.goto_previous_end("@function.outer", "textobjects")
+			end, { desc = "Prev function end" })
+
+			vim.keymap.set("n", "<leader>a", function()
+				swap.swap_next("@parameter.inner")
+			end, { desc = "Swap with next parameter" })
+			vim.keymap.set("n", "<leader>A", function()
+				swap.swap_previous("@parameter.inner")
+			end, { desc = "Swap with previous parameter" })
+		end,
 	},
 }

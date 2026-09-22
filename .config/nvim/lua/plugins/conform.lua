@@ -30,9 +30,6 @@ return {
 			undojoin = true,
 			-- bufnr: The buffer to format. Defaults to the current buffer (0).
 			-- bufnr = 0,
-			-- formatters: List of formatters to run. Defaults to all formatters for the buffer filetype.
-			-- This allows you to specify a subset of formatters or a specific order.
-			formatters = { "stylua", "ruff" },
 			-- range: Table with `start` and `end` (line numbers) for range formatting.
 			-- { start = { line, col }, ['end'] = { line, col } }
 			-- Conform automatically provides range formatting even if the underlying formatter doesn't support it.
@@ -64,12 +61,12 @@ return {
 		-- You can also use `stop_after_first = true` within the list to stop after the first successful formatter.
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "ruff", "isort" }, -- isort first, then black
-			json = { "prettierd", "format_on_savettier", stop_after_first = true },
+			python = { "ruff_organize_imports", "ruff_format" }, -- ruff handles import sorting (isort) + formatting
+			json = { "prettierd", "prettier", stop_after_first = true },
 			yaml = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
 			sh = { "shfmt" },
-			go = { "gofumpt" }, -- goimports first, then gofmt
+			go = { "goimports", "gofumpt" },
 			rust = { "rustfmt" },
 		},
 

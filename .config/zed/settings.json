@@ -1,7 +1,19 @@
 {
+    "context_servers": {
+        "mcp-server-github": {
+            "enabled": true,
+            "remote": false,
+        },
+    },
+    "edit_predictions": {
+        "zed": {
+            "prediction_debounce": 100,
+        },
+        "provider": "zed",
+    },
     "cli_default_open_behavior": "existing_window",
     "git_panel": {
-        "dock": "left"
+        "dock": "right",
     },
     "ssh_connections": [
         {
@@ -9,20 +21,29 @@
             "args": [],
             "projects": [
                 {
-                    "paths": [
-                        "/opt/n8n"
-                    ]
-                }
-            ]
-        }
+                    "paths": ["/opt/n8n"],
+                },
+            ],
+        },
     ],
-    "icon_theme": "Colored Zed Icons Theme Dark",
+    "icon_theme": "Material Icon Theme",
     "agent": {
-        "dock": "right",
+        "sandbox_permissions": {
+            "network_hosts": [
+                "registry.opentofu.org",
+                "registry.terraform.io",
+                "releases.hashicorp.com",
+                "github.com",
+                "objects.githubusercontent.com",
+                "release-assets.githubusercontent.com",
+            ],
+        },
+        "dock": "left",
         "default_model": {
-            "provider": "google",
-            "model": "gemini-3.1-pro-preview",
-            "enable_thinking": false,
+            "effort": "high",
+            "provider": "copilot_chat",
+            "model": "claude-opus-4.8",
+            "enable_thinking": true,
         },
     },
     "telemetry": {
@@ -40,7 +61,7 @@
     "preferred_line_length": 88,
     "soft_wrap": "preferred_line_length",
     "tab_size": 4,
-    "auto_indent": true,
+    "auto_indent": "syntax_aware",
     "remove_trailing_whitespace_on_save": true,
     "ensure_final_newline_on_save": true,
     "format_on_save": "on",
@@ -153,20 +174,47 @@
                 },
             },
         },
+        "lua-language-server": {
+            "settings": {
+                "Lua": {
+                    "runtime": {
+                        "version": "LuaJIT",
+                    },
+                    "diagnostics": {
+                        "globals": ["vim", "Snacks"],
+                    },
+                    "workspace": {
+                        // Zed doesn't set $VIMRUNTIME, so use the absolute path.
+                        "library": [
+                            "/usr/share/nvim/runtime",
+                            "${3rd}/luv/library",
+                            "~/.local/share/nvim/lazy/snacks.nvim",
+                        ],
+                        "checkThirdParty": false,
+                    },
+                    "format": {
+                        "enable": false,
+                    },
+                    "telemetry": {
+                        "enable": false,
+                    },
+                },
+            },
+        },
     },
     "collaboration_panel": {
-        "dock": "left",
+        "dock": "right",
         "button": true,
     },
     "outline_panel": {
-        "dock": "left",
+        "dock": "right",
         "button": true,
         "default_width": 240,
     },
     "project_panel": {
         "button": true,
         "default_width": 240,
-        "dock": "left",
+        "dock": "right",
         "git_status": true,
     },
     "inlay_hints": {

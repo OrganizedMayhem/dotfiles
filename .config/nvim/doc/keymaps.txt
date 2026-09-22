@@ -1,0 +1,230 @@
+*keymaps.txt*  Personal keymap reference                        *my-keymaps*
+
+Leader and localleader are both <Space>.  Press <Space> and wait for
+which-key to show the next keys, or <Space>? for every mapping.
+
+Mode column:  n normal   x visual   o operator-pending   i insert
+              t terminal   "LSP" = only in buffers with a language server
+
+                                        Type |gO| for a table of contents.
+
+==============================================================================
+1. Find / pick                                          *my-keymaps-find*
+
+Pickers are snacks.nvim unless marked (fzf).
+
+  <Space><Space>  n   Smart find files (files + buffers + recent)
+  <Space>ff       n   Find files
+  <Space>fg       n   Find git files
+  <Space>fc       n   Find file in Neovim config
+  <Space>fb       n   Buffers
+  <Space>,        n   Buffers
+  <Space>fr       n   Recent files
+  <Space>fo       n   Old files                                   (fzf)
+  <Space>fp       n   Projects  (:ProjectFzf)                     (fzf)
+  <Space>fh       n   Help tags                                   (fzf)
+  <Space>fk       n   Keymaps                                     (fzf)
+  <Space>fw       n   Grep word under cursor                      (fzf)
+  <Space>fW       n   Grep WORD under cursor                      (fzf)
+  <Space>fd       n   Diagnostics in current document             (fzf)
+  <Space>/        n   Grep project
+  <Space>:        n   Command history
+  <Space>e        n   File explorer (snacks)
+  -               n   Open parent directory in Oil (floating)
+
+==============================================================================
+2. Search                                               *my-keymaps-search*
+
+  <Space>sg       n   Grep
+  <Space>sw       nx  Grep word under cursor / visual selection
+  <Space>sb       n   Lines in current buffer
+  <Space>sB       n   Grep open buffers
+  <Space>s"       n   Registers
+  <Space>s/       n   Search history
+  <Space>sa       n   Autocmds
+  <Space>sc       n   Command history
+  <Space>sC       n   Commands
+  <Space>sd       n   Diagnostics (workspace)
+  <Space>sD       n   Diagnostics (buffer)
+  <Space>sh       n   Help pages
+  <Space>sH       n   Highlight groups
+  <Space>si       n   Icons
+  <Space>sj       n   Jumplist
+  <Space>sk       n   Keymaps
+  <Space>sl       n   Location list
+  <Space>sq       n   Quickfix list
+  <Space>sm       n   Marks
+  <Space>sM       n   Man pages
+  <Space>sp       n   Lazy plugin specs
+  <Space>sR       n   Resume last picker
+  <Space>su       n   Undo history (picker)
+  <Space>ss       n   LSP document symbols
+  <Space>sS       n   LSP workspace symbols
+
+==============================================================================
+3. LSP                                                  *my-keymaps-lsp*
+
+Custom ("LSP" rows are buffer-local, set on |LspAttach|):
+
+  gd              n   Goto definition (picker)
+  gr              n   References (picker)
+  gI              n   Goto implementation (picker)
+  gy              n   Goto type definition (picker)
+  gD              n   Goto declaration                            LSP
+  gs              n   Signature help                              LSP
+  gl              n   Diagnostic float for current line
+  <Space>v        n   Goto definition in vertical split           LSP
+  <Space>la       n   Code action                                 LSP
+  <Space>lr       n   Rename symbol                               LSP
+  <Space>lf       n   Format buffer (conform, LSP fallback)       LSP
+  <Space>lc       n   Run codelens              LSP, if server has lenses
+  <Space>cf       n   Format buffer (conform, LSP fallback)
+  ]]  /  [[       nt  Next / prev reference of word under cursor
+                      (snacks.words; Go and some other ftplugins
+                      override these with section jumps)
+
+Neovim built-ins (|lsp-defaults|, nothing configured):
+
+  K               n   Hover documentation
+  grn             n   Rename
+  gra             nx  Code action
+  grr             n   References (quickfix)
+  gri             n   Implementation
+  grt             n   Type definition
+  grx             n   Run codelens
+  gO              n   Document symbols
+  <C-s>           i   Signature help
+  ]d  /  [d       n   Next / prev diagnostic
+  ]D  /  [D       n   Last / first diagnostic
+  <C-w>d          n   Diagnostic float
+
+==============================================================================
+4. Git                                                  *my-keymaps-git*
+
+  <Space>gg       n   Lazygit
+  <Space>gs       n   Status
+  <Space>gd       n   Diff hunks
+  <Space>gb       n   Branches
+  <Space>gl       n   Log
+  <Space>gL       n   Log for current line
+  <Space>gf       n   Log for current file
+  <Space>gS       n   Stash
+  <Space>gB       nx  Open file/selection in browser
+
+==============================================================================
+5. Treesitter text objects and motions            *my-keymaps-textobjects*
+
+Text objects (x, o) - "a" is outer, "i" is inner:
+
+  af  if          function
+  ac  ic          class
+  aa  ia          parameter / argument
+  al  il          loop
+  ad  id          conditional
+  ae  ie          comment
+  an  in          parent / child syntax node               (built-in)
+
+Built-in ap/ip (paragraph), as/is (sentence) and ab/ib (block) are
+untouched.
+
+Motions (n, x, o):
+
+  ]m  /  [m       Next / prev function start
+  ]M  /  [M       Next / prev function end
+  ]n  /  [n       Select next / prev node (x only)         (built-in)
+  ]N  /  [N       Select next / prev sibling (x only)      (built-in)
+
+Swaps (n):
+
+  <Space>a        Swap parameter with next
+  <Space>A        Swap parameter with previous
+
+==============================================================================
+6. UI toggles                                           *my-keymaps-toggles*
+
+  <Space>us       n   Spelling
+  <Space>uw       n   Wrap
+  <Space>ul       n   Line numbers
+  <Space>uL       n   Relative numbers
+  <Space>ud       n   Diagnostics
+  <Space>uc       n   Conceal
+  <Space>uT       n   Treesitter highlighting
+  <Space>ub       n   Dark / light background
+  <Space>uh       n   Inlay hints
+  <Space>ug       n   Indent guides
+  <Space>uD       n   Dim inactive code
+  <Space>uC       n   Colorscheme picker
+  <Space>Z        n   Zoom current window
+  <Space>un       n   Dismiss notifications
+
+==============================================================================
+7. Buffers, windows and misc                            *my-keymaps-misc*
+
+  <Space>bd       n   Delete buffer (keeps window layout)
+  <Space>cR       n   Rename current file (LSP-aware)
+  <Space>.        n   Toggle scratch buffer
+  <Space>S        n   Select scratch buffer
+  <Space>n        n   Notification history
+  <Space>U        n   Toggle undotree (built-in |:Undotree|)
+  <Space>N        n   Neovim news (news.txt)
+  <Space>?        n   All keymaps (which-key)
+  <C-/>           n   Toggle floating terminal
+
+Useful Neovim built-ins:
+
+  gcc  /  gc{m}   n   Toggle comment line / motion
+  gc              x   Toggle comment on selection
+  gx              nx  Open path or URL under cursor
+  ]<Space>        n   Add empty line below
+  [<Space>        n   Add empty line above
+  ]q [q ]Q [Q     n   Quickfix next / prev / last / first
+  ]l [l ]L [L     n   Location list next / prev / last / first
+  ]b [b ]B [B     n   Buffer next / prev / last / first
+  ]a [a  ]t [t    n   Argument list / tag list next / prev
+
+==============================================================================
+8. Completion (blink.cmp, insert mode)             *my-keymaps-completion*
+
+  <C-Space>       Show menu / toggle documentation
+  <C-y>           Accept selected item
+  <C-e>           Cancel
+  <C-n>  /  <C-p> Next / prev item  (also <Down> / <Up>)
+  <C-b>           Scroll documentation up
+  <C-k>           Toggle signature help
+  <Tab> / <S-Tab> Jump to next / prev snippet placeholder
+
+<C-f> is unmapped on purpose, so it keeps its default behaviour.
+
+==============================================================================
+9. Oil (inside an Oil buffer)                           *my-keymaps-oil*
+
+  <CR>            Open entry
+  <C-s>           Open in vertical split
+  <C-h>           Open in horizontal split
+  <C-t>           Open in new tab
+  <C-p>           Preview
+  <C-c>           Close
+  <C-l>           Refresh
+  -               Parent directory
+  _               Open current working directory
+  `  /  ~         :cd / :tcd to this directory
+  gs              Change sort order
+  gx              Open with system handler
+  g.              Toggle hidden files
+  g\              Toggle trash view
+  g?              Show help
+
+==============================================================================
+10. Obsidian (markdown notes in a vault)                *my-keymaps-obsidian*
+
+  <CR>            n   Smart action: follow link, toggle checkbox, etc.
+  ]o  /  [o       n   Next / prev link in note
+
+Inside the Obsidian picker:
+
+  <C-x>           New note from query / tag the note
+  <C-l>           Insert link / insert tag
+
+Command: `:ObsidianOptionsTrade` creates an options-trade note from prompts.
+
+ vim:tw=78:ts=8:ft=help:norl:
