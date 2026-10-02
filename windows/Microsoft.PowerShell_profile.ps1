@@ -4,7 +4,6 @@
 
 $script:ProfileTimer = [System.Diagnostics.Stopwatch]::StartNew()
 
-$ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
 # ----------------------------------------------------------------------------
@@ -63,7 +62,7 @@ if ($env:POSH_CONFIG -and (Test-Command -Name 'oh-my-posh')) {
 
 if (
     $Host.Name -eq 'ConsoleHost' -and
-    (Test-Command -Name 'Set-PSReadLineOption')
+    (Get-Module -Name PSReadLine)
 ) {
     try {
         Set-PSReadLineOption -HistorySaveStyle SaveNothing
@@ -83,9 +82,10 @@ if (
 # Basic Aliases
 # ----------------------------------------------------------------------------
 
-if (Test-Command -Name 'terraform') {
-    Set-Alias -Name tf -Value terraform -Scope Global
-}
+Set-Alias -Name tf -Value terraform -Scope Global
+
+# Built-in aliases (gl, gp, gcm) take precedence over the git functions below.
+Remove-Item -Path Alias:gl, Alias:gp, Alias:gcm -Force -ErrorAction Ignore
 
 # ----------------------------------------------------------------------------
 # Navigation
@@ -158,22 +158,29 @@ function azctx {
                 $FakeBoundParameters
             )
 
-            if (Get-Command -Name az -ErrorAction SilentlyContinue) {
-                az account list `
-                    --query '[].{Name:name,Id:id}' `
-                    --output tsv 2>$null |
-                    ForEach-Object {
-                        $name, $id = $_ -split "`t", 2
+            # az is slow to start; cache the subscription list per session.
+            if (
+                -not $global:AzSubscriptionCache -and
+                (Get-Command -Name az -ErrorAction SilentlyContinue)
+            ) {
+                $global:AzSubscriptionCache = @(
+                    az account list `
+                        --query '[].{Name:name,Id:id}' `
+                        --output tsv 2>$null
+                )
+            }
 
-                        if ($name -like "$WordToComplete*") {
-                            [System.Management.Automation.CompletionResult]::new(
-                                $id,
-                                $name,
-                                'ParameterValue',
-                                "$name [$id]"
-                            )
-                        }
-                    }
+            foreach ($line in $global:AzSubscriptionCache) {
+                $name, $id = $line -split "`t", 2
+
+                if ($name -like "$WordToComplete*") {
+                    [System.Management.Automation.CompletionResult]::new(
+                        $id,
+                        $name,
+                        'ParameterValue',
+                        "$name [$id]"
+                    )
+                }
             }
         })]
         [string]$Subscription
@@ -293,7 +300,7 @@ function Get-JiraFieldValue {
     }
 
     if ($Value -is [string]) {
-        if (:IsNullOrWhiteSpace($Value)) {
+        if ([string]::IsNullOrWhiteSpace($Value)) {
             return $Default
         }
 
@@ -310,7 +317,7 @@ function Get-JiraFieldValue {
         if ($Value.PSObject.Properties.Name -contains $property) {
             $result = $Value.$property
 
-            if (-not :IsNullOrWhiteSpace([string]$result)) {
+            if (-not [string]::IsNullOrWhiteSpace([string]$result)) {
                 return [string]$result
             }
         }
@@ -329,7 +336,7 @@ function ConvertFrom-JiraContentNode {
         [int]$ListDepth = 0
     )
 
-    $newLine = :NewLine
+    $newLine = [Environment]::NewLine
 
     switch ($Node.type) {
         'text' {
@@ -560,7 +567,7 @@ function Join-JiraFieldValues {
     $results = foreach ($value in @($Values)) {
         $result = Get-JiraFieldValue -Value $value -Default ''
 
-        if (-not :IsNullOrWhiteSpace($result)) {
+        if (-not [string]::IsNullOrWhiteSpace($result)) {
             $result
         }
     }
@@ -748,83 +755,40 @@ function Get-JiraTicket {
             Write-Host "$($issue.key): $summary" -ForegroundColor Cyan
             Write-Host $separator -ForegroundColor DarkGray
 
-            Write-Host 'Status       : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $status -ForegroundColor Yellow
+            $details = [ordered]@{
+                'Status'       = $status
+                'Priority'     = $priority
+                'Type'         = $issueType
+                'Assignee'     = $assignee
+                'Reporter'     = $reporter
+                'Resolution'   = $resolution
+                'Created'      = Format-JiraDate -Date $fields.created -Default 'Unknown'
+                'Updated'      = Format-JiraDate -Date $fields.updated -Default 'Unknown'
+                'Due Date'     = Format-JiraDate -Date $fields.duedate -Default 'None'
+                'Labels'       = $labels
+                'Components'   = $components
+                'Fix Versions' = $fixVersions
+            }
 
-            Write-Host 'Priority     : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $priority
+            foreach ($entry in $details.GetEnumerator()) {
+                Write-Host ('{0,-12} : ' -f $entry.Key) `
+                    -NoNewline `
+                    -ForegroundColor DarkGray
 
-            Write-Host 'Type         : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $issueType
+                $valueColor = @{}
 
-            Write-Host 'Assignee     : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $assignee
+                if ($entry.Key -eq 'Status') {
+                    $valueColor.ForegroundColor = 'Yellow'
+                }
 
-            Write-Host 'Reporter     : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $reporter
-
-            Write-Host 'Resolution   : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $resolution
-
-            Write-Host 'Created      : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host (
-                Format-JiraDate `
-                    -Date $fields.created `
-                    -Default 'Unknown'
-            )
-
-            Write-Host 'Updated      : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host (
-                Format-JiraDate `
-                    -Date $fields.updated `
-                    -Default 'Unknown'
-            )
-
-            Write-Host 'Due Date     : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host (
-                Format-JiraDate `
-                    -Date $fields.duedate `
-                    -Default 'None'
-            )
-
-            Write-Host 'Labels       : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $labels
-
-            Write-Host 'Components   : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $components
-
-            Write-Host 'Fix Versions : ' `
-                -NoNewline `
-                -ForegroundColor DarkGray
-            Write-Host $fixVersions
+                Write-Host $entry.Value @valueColor
+            }
 
             Write-Host ''
             Write-Host 'DESCRIPTION' -ForegroundColor Green
             Write-Host $separator -ForegroundColor DarkGray
 
-            if (-not :IsNullOrWhiteSpace($description)) {
+            if (-not [string]::IsNullOrWhiteSpace($description)) {
                 Write-Host $description
             }
             else {
@@ -1032,10 +996,10 @@ function Clean-Log {
 # ----------------------------------------------------------------------------
 
 function Import-TerminalIcons {
-    if (
-        -not (Get-Module -Name Terminal-Icons) -and
-        (Get-Module -Name Terminal-Icons -ListAvailable)
-    ) {
+    # Attempt once per session; -ListAvailable rescans PSModulePath every call.
+    if (-not $script:TerminalIconsAttempted) {
+        $script:TerminalIconsAttempted = $true
+
         Import-Module `
             -Name Terminal-Icons `
             -ErrorAction SilentlyContinue
