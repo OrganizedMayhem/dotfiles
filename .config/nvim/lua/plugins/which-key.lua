@@ -2,18 +2,9 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show({ global = true })
-				end,
-				desc = "Buffer Local Keymaps (which-key)",
-			},
-		},
-	} }
+		-- group labels and icons come from the keymap registry (lua/config/keymaps)
+		opts = function()
+			return { spec = require("config.keymaps").which_key_spec() }
+		end,
+	},
+}

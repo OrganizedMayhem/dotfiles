@@ -67,49 +67,7 @@ return {
 				},
 			})
 
-			local select = require("nvim-treesitter-textobjects.select")
-			local move = require("nvim-treesitter-textobjects.move")
-			local swap = require("nvim-treesitter-textobjects.swap")
-
-			-- Built-in ap/ip, as/is and ab/ib are left alone.
-			local objects = {
-				f = { "@function", "function" },
-				c = { "@class", "class" },
-				a = { "@parameter", "parameter" },
-				l = { "@loop", "loop" },
-				d = { "@conditional", "conditional" },
-				e = { "@comment", "comment" },
-			}
-			for key, obj in pairs(objects) do
-				for _, kind in ipairs({ "outer", "inner" }) do
-					local lhs = (kind == "outer" and "a" or "i") .. key
-					vim.keymap.set({ "x", "o" }, lhs, function()
-						select.select_textobject(obj[1] .. "." .. kind, "textobjects")
-					end, { desc = kind .. " " .. obj[2] })
-				end
-			end
-
-			-- ]] / [[ are used by snacks.words for reference jumping.
-			local nxo = { "n", "x", "o" }
-			vim.keymap.set(nxo, "]m", function()
-				move.goto_next_start("@function.outer", "textobjects")
-			end, { desc = "Next function start" })
-			vim.keymap.set(nxo, "]M", function()
-				move.goto_next_end("@function.outer", "textobjects")
-			end, { desc = "Next function end" })
-			vim.keymap.set(nxo, "[m", function()
-				move.goto_previous_start("@function.outer", "textobjects")
-			end, { desc = "Prev function start" })
-			vim.keymap.set(nxo, "[M", function()
-				move.goto_previous_end("@function.outer", "textobjects")
-			end, { desc = "Prev function end" })
-
-			vim.keymap.set("n", "<leader>a", function()
-				swap.swap_next("@parameter.inner")
-			end, { desc = "Swap with next parameter" })
-			vim.keymap.set("n", "<leader>A", function()
-				swap.swap_previous("@parameter.inner")
-			end, { desc = "Swap with previous parameter" })
+			-- keymaps: lua/config/keymaps/code.lua and nav.lua
 		end,
 	},
 }

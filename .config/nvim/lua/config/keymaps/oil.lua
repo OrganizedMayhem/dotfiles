@@ -1,0 +1,25 @@
+-- Buffer-local keys inside Oil; handed to oil's setup via plugin_keys("oil").
+return {
+	name = "Oil",
+	plugin = "oil",
+	scope = "oil",
+	icon = { cat = "filetype", name = "oil" },
+	maps = {
+		{ "g?", "actions.show_help", desc = "Show help" },
+		{ "<CR>", "actions.select", desc = "Open entry" },
+		{ "<C-s>", "actions.select_vsplit", desc = "Open in vertical split" },
+		{ "<C-h>", "actions.select_split", desc = "Open in horizontal split" },
+		{ "<C-t>", "actions.select_tab", desc = "Open in new tab" },
+		{ "<C-p>", "actions.preview", desc = "Preview" },
+		{ "<C-c>", "actions.close", desc = "Close" },
+		{ "<C-l>", "actions.refresh", desc = "Refresh" },
+		{ "-", "actions.parent", desc = "Parent directory" },
+		{ "_", "actions.open_cwd", desc = "Open current working directory" },
+		{ "`", "actions.cd", desc = ":cd to this directory" },
+		{ "~", "actions.tcd", desc = ":tcd to this directory" },
+		{ "gs", "actions.change_sort", desc = "Change sort order" },
+		{ "gx", "actions.open_external", desc = "Open with system handler" },
+		{ "g.", "actions.toggle_hidden", desc = "Toggle hidden files" },
+		{ "g\\", "actions.toggle_trash", desc = "Toggle trash view" },
+	},
+}
