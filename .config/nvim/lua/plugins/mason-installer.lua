@@ -31,6 +31,10 @@ return {
 				"goimports", -- go: auto-manages imports
 				"isort", -- python: import sorting (pairs with ruff)
 				"shfmt",
+
+				-- ── Debug Adapters ──────────────────────────────────────────────
+				"debugpy", -- python
+				"delve", -- go
 			},
 
 			-- Checks and installs on every startup. Combined with debounce_hours
@@ -42,7 +46,7 @@ return {
 
 			integrations = {
 				["mason-lspconfig"] = true, -- managed separately via lspconfig config
-				["mason-nvim-dap"] = false, -- set to true if you add nvim-dap
+				["mason-nvim-dap"] = false, -- adapters are configured directly in dap.lua
 			},
 		},
 	},

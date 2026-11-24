@@ -1,5 +1,4 @@
 return {
-	{ "L3MON4D3/LuaSnip", keys = {} },
 	{
 		"saghen/blink.cmp",
 		dependencies = {
@@ -8,7 +7,6 @@ return {
 		version = "*",
 		config = function(_, opts)
 			require("blink.cmp").setup(vim.tbl_deep_extend("force", opts or {}, {
-				snippets = { preset = "luasnip" },
 				signature = { enabled = true },
 				appearance = {
 					use_nvim_cmp_as_default = false,
@@ -85,7 +83,6 @@ return {
 				},
 			}))
 
-			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
 	},
 }

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find / -maxdepth 6 -iname \"*adhd*\")",
+      "Bash(find / -maxdepth 6 -iname \"*terraform*specialist*\" -o -iname \"*terraform-specialist*\")",
+      "Read(//home/sevans/.agents/skills/**)",
+      "Read(//home/sevans/.agents/**)",
+      "Read(//home/sevans/.claude/**)",
+      "Bash(gh api *)",
+      "Bash(echo \"EXIT:$?\")",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebFetch(domain:www.mdskills.ai)"
+    ]
+  }
+}

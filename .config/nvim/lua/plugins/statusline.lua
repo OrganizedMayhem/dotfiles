@@ -8,7 +8,7 @@ return {
 		event = "VeryLazy",  -- Load after startup for better performance
 		dependencies = {
 			"echasnovski/mini.icons", -- For file type icons
-			"echasnovski/mini.diff", -- For diff information
+			"echasnovski/mini-git", -- For git branch in section_git
 		},
 		config = function()
 			-- Helper functions for custom statusline sections
@@ -16,8 +16,9 @@ return {
 
 			-- Custom DAP section
 			function M.dap_status()
-				local dap_ok, dap = pcall(require, "dap")
-				if not dap_ok then
+				-- Only check if dap is already loaded, so the statusline doesn't force-load it
+				local dap = package.loaded["dap"]
+				if not dap then
 					return ""
 				end
 
@@ -71,6 +72,17 @@ return {
 				return string.format(" %s%d", icon, size)
 			end
 
+			-- LSP progress (updated by the LspProgress autocmd below)
+			local lsp_progress_msg = ""
+			function M.lsp_progress()
+				if lsp_progress_msg == "" then
+					return ""
+				end
+				return "%#DiagnosticInfo#󰔟 " .. lsp_progress_msg
+			end
+
+			require("mini.git").setup()
+
 			require("mini.statusline").setup({
 				content = {
 					active = function()
@@ -100,6 +112,7 @@ return {
 						local spell_status = M.spell_status()
 						local encoding_info = M.encoding_info()
 						local indent_info = M.indent_info()
+						local lsp_progress = M.lsp_progress()
 
 						return require("mini.statusline").combine_groups({
 							{ hl = mode_hl,                  strings = { mode } },
@@ -110,6 +123,7 @@ return {
 									diff,
 									diagnostics,
 									lsp,
+									lsp_progress,
 									dap_status,
 									macro_status,
 									--ts_status,
@@ -164,10 +178,24 @@ return {
 			local augroup = vim.api.nvim_create_augroup("MiniStatuslineRefresh", { clear = true })
 
 			-- Refresh on DAP events
-			vim.api.nvim_create_autocmd({ "User" }, {
+			-- (nvim-dap has no User events; dap.lua redraws via dap.listeners instead)
+
+			-- Track LSP progress messages
+			vim.api.nvim_create_autocmd("LspProgress", {
 				group = augroup,
-				pattern = { "DapSessionStarted", "DapSessionStopped" },
-				callback = function()
+				callback = function(ev)
+					local value = ev.data and ev.data.params and ev.data.params.value or {}
+					if value.kind == "end" then
+						lsp_progress_msg = ""
+					else
+						local client = vim.lsp.get_client_by_id(ev.data.client_id)
+						local msg = (client and client.name .. ": " or "") .. (value.title or "")
+						if value.percentage then
+							msg = msg .. " " .. value.percentage .. "%"
+						end
+						-- Truncate, then escape % for the statusline
+						lsp_progress_msg = msg:sub(1, 40):gsub("%%", "%%%%")
+					end
 					vim.cmd("redrawstatus")
 				end,
 			})
